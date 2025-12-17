@@ -13,6 +13,11 @@ import java.time.LocalDataTime;
 public class EmployeeProfile{
     @Id 
     @GeneratedValue(strategy = GenrationType.IDENTITY)
-    private Long id
+    private Long id;
+
+    @coulumn(nulllable = false, unique = true)
+    private String employeeId;
+
+    
     
 }
