@@ -2,14 +2,6 @@ import jakarata.presistence.*;
 import java.time.LocalDataTime;
 
 @Entity
-@Table(
-    name = "employee_profile",
-    uniqueConstraints = {
-        @uniqueConstraints(coulumnNames = "employeeId")
-        @uniqueConstraints(coulumnNames = "email")
-    }
-)
-
 public class EmployeeProfile{
     @Id 
     @GeneratedValue(strategy = GenrationType.IDENTITY)
@@ -26,8 +18,18 @@ public class EmployeeProfile{
 
     private String teamName;
 
-    @coulumn(nulllable = false)
     private String role;
+    @coulumn(nulllable = false)
+    private Boolean active = true;
+
+    @coulumn(nulllable = false , updatable = false)
+    private LocalDataTime createdAt;
+
+    @prePersist
+    public void prePersist(){
+        this.createdAt = LocalDataTime.now();
+    }
+    
 
 
     
