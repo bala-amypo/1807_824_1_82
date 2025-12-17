@@ -4,29 +4,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenrationType;
+import jakarta.persistence.GenerationType;
 @Entity
 public class EmployeeProfile{
     @Id 
-    @GeneratedValue(strategy = GenrationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Coulumn(nulllable = false, unique = true)
+    @Column(nulllable = false, unique = true)
     private String employeeId;
 
-    @Coulumn(nulllable = false)
+    @Column(nulllable = false)
     private String fullName;
 
-    @Coulumn(nulllable = false , unique = true)
+    @Column(nulllable = false , unique = true)
     private String email;
 
     private String teamName;
 
     private String role;
-    @Coulumn(nulllable = false)
+    @Column(nulllable = false)
     private Boolean active = true;
 
-    @Coulumn(nulllable = false , updatable = false)
+    @Column(nulllable = false , updatable = false)
     private LocalDataTime createdAt;
 
     @PrePersist
@@ -87,6 +87,11 @@ public class EmployeeProfile{
         this.id=id;
         this.employeeId=employeeId;
         this.fullName=fullName;
-        this.email=email
+        this.email=email;
+        this.teamName=teamName;
+        this.role=role;
+        this.active=active;
+        this.createdAt=createdAt;
     }  
+    public EmployeeProfile(){}
 }
