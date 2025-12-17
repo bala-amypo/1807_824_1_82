@@ -29,7 +29,32 @@ public class EmployeeProfile{
     public void prePersist(){
         this.createdAt = LocalDataTime.now();
     }
-    
+    public EmployeeProfile(){ }
+
+    public Long getID(){
+        return id;
+    }
+    public String getEmployeeId(){
+        return employeeId;
+    }
+    public String getFullName(){
+        return fullName;
+    }
+    public void setFullName(String fullName){
+        this.fullName = fullName;
+    }
+    public String getEmail(){
+        return email;
+    }
+    public String setEmail(String email){
+        this.email = email;
+    }
+    public void getTeamName(){
+        return TeamName;
+    }
+    public void setTeamName(String TeamName){
+        return TeamName;
+    }
 
 
     
