@@ -1,3 +1,3 @@
-public class AnomalyFlagDto {
+// public class AnomalyFlagDto {
     
-}
+// }

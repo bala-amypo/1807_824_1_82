@@ -1,6 +1,6 @@
 
 
 
-public class AnomalyFlagRecord {
+// public class AnomalyFlagRecord {
     
-}
+// }

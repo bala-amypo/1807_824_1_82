@@ -1,3 +1,3 @@
-public class AnomalyRule {
+// public class AnomalyRule {
     
-}
+// }
