@@ -1,3 +1,3 @@
-public class AuthResponse {
+// public class AuthResponse {
     
-}
+// }

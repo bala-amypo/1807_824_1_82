@@ -1,3 +1,3 @@
-public class RegisterRequest {
+// public class RegisterRequest {
     
-}
+// }

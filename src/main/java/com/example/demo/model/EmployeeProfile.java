@@ -1,6 +1,10 @@
-import jakarata.presistence.*;
+package com.example.demo.model;
 import java.time.LocalDataTime;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenrationType;
 @Entity
 public class EmployeeProfile{
     @Id 
