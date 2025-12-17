@@ -44,7 +44,9 @@ public class EmployeeProfile{
     public String getEmployeeId(){
         return employeeId;
     }
-    public void setEmployeeId(String empl)
+    public void setEmployeeId(String employeeId){
+        this.employeeId=employeeId;
+    }
     public String getFullName(){
         return fullName;
     }
@@ -77,5 +79,14 @@ public class EmployeeProfile{
     }
     public LocalDataTime getCreatedAt(){
         return createdAt;
-    }    
+    } 
+    public void setActiveLocalDateTime(LocalDataTime createdAt){
+        this.createdAt=createdAt;
+    } 
+    public EmployeeProfile(Long id, String employeeId, String fullName, String email, String teamName, String role, Boolean active, LocalDataTime createdAt){
+        this.id=id;
+        this.employeeId=employeeId;
+        this.fullName=fullName;
+        this.email=email
+    }  
 }
