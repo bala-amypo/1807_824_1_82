@@ -33,14 +33,18 @@ public class EmployeeProfile{
     public void prePersist(){
         this.createdAt = LocalDataTime.now();
     }
-    public EmployeeProfile(){ }
+    
 
-    public Long getID(){
+    public Long getId(){
         return id;
+    }
+    public void setId(Long id){
+        this.id=id;
     }
     public String getEmployeeId(){
         return employeeId;
     }
+    public void setEmployeeId(String empl)
     public String getFullName(){
         return fullName;
     }
