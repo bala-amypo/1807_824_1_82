@@ -46,16 +46,28 @@ public class EmployeeProfile{
     public String getEmail(){
         return email;
     }
-    public String setEmail(String email){
+    public void setEmail(String email){
         this.email = email;
     }
-    public void getTeamName(){
-        return TeamName;
+    public String getTeamName(){
+        return teamName;
     }
     public void setTeamName(String TeamName){
-        return TeamName;
+        this.teamName = teamName;
     }
-
-
-    
+    public String getRole(){
+        return role;
+    }
+    public void setRole(String Role){
+        this.role = role;
+    }
+    public boolean getActive(){
+        return active;
+    }
+    public void setActive(Boolean active){
+        this.active = active;
+    }
+    public LocalDataTime getCreatedAt(){
+        return createdAt;
+    }    
 }
