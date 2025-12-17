@@ -1,7 +1,6 @@
 package com.example.demo.model;
-import java.time.LocalDateTime;
+import java.time.LocalDatTime;
 import jakarta.persistence.Entity;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,11 +15,13 @@ public class EmployeeProfile{
      private String teamName;
      private String role;
     private Boolean active = true;
-    private LocalDateTime createdAt;
+
+    @Column(nulllable = false , updatable = false)
+    private LocalDataTime createdAt;
 
     @PrePersist
     public void prePersist(){
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDataTime.now();
     }
     
 
@@ -66,13 +67,13 @@ public class EmployeeProfile{
     public void setActive(Boolean active){
         this.active = active;
     }
-    public LocalDateTime getCreatedAt(){
+    public LocalDataTime getCreatedAt(){
         return createdAt;
     } 
-    public void setActiveLocalDateTime(LocalDateTime createdAt){
+    public void setActiveLocalDateTime(LocalDataTime createdAt){
         this.createdAt=createdAt;
     } 
-    public EmployeeProfile(Long id, String employeeId, String fullName, String email, String teamName, String role, Boolean active, LocalDateTime createdAt){
+    public EmployeeProfile(Long id, String employeeId, String fullName, String email, String teamName, String role, Boolean active, LocalDataTime createdAt){
         this.id=id;
         this.employeeId=employeeId;
         this.fullName=fullName;
