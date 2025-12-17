@@ -22,7 +22,12 @@ public class EmployeeProfile{
     private String fullName;
 
     @coulumn(nulllable = false , unique = true)
-    private String 
+    private String email;
+
+    private String teamName;
+
+    @coulumn(nulllable = false)
+    private String role;
 
 
     
