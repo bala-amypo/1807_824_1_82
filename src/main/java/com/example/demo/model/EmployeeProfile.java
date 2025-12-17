@@ -18,6 +18,12 @@ public class EmployeeProfile{
     @coulumn(nulllable = false, unique = true)
     private String employeeId;
 
-    
+    @coulumn(nulllable = false)
+    private String fullName;
+
+    @coulumn(nulllable = false , unique = true)
+    private String 
+
+
     
 }
