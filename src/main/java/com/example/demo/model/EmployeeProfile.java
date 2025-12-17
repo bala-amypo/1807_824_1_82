@@ -7,25 +7,25 @@ public class EmployeeProfile{
     @GeneratedValue(strategy = GenrationType.IDENTITY)
     private Long id;
 
-    @coulumn(nulllable = false, unique = true)
+    @Coulumn(nulllable = false, unique = true)
     private String employeeId;
 
-    @coulumn(nulllable = false)
+    @Coulumn(nulllable = false)
     private String fullName;
 
-    @coulumn(nulllable = false , unique = true)
+    @Coulumn(nulllable = false , unique = true)
     private String email;
 
     private String teamName;
 
     private String role;
-    @coulumn(nulllable = false)
+    @Coulumn(nulllable = false)
     private Boolean active = true;
 
-    @coulumn(nulllable = false , updatable = false)
+    @Coulumn(nulllable = false , updatable = false)
     private LocalDataTime createdAt;
 
-    @prePersist
+    @PrePersist
     public void prePersist(){
         this.createdAt = LocalDataTime.now();
     }
