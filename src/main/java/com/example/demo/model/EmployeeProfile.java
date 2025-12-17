@@ -1,8 +1,7 @@
 package com.example.demo.model;
-import java.time.LocalDataTime;
+import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 @Entity
@@ -10,28 +9,17 @@ public class EmployeeProfile{
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nulllable = false, unique = true)
     private String employeeId;
-
-    @Column(nulllable = false)
-    private String fullName;
-
-    @Column(nulllable = false , unique = true)
-    private String email;
-
-    private String teamName;
-
-    private String role;
-    @Column(nulllable = false)
+      private String fullName;
+      private String email;
+     private String teamName;
+     private String role;
     private Boolean active = true;
-
-    @Column(nulllable = false , updatable = false)
-    private LocalDataTime createdAt;
+    private LocalDateTime createdAt;
 
     @PrePersist
     public void prePersist(){
-        this.createdAt = LocalDataTime.now();
+        this.createdAt = LocalDateTime.now();
     }
     
 
