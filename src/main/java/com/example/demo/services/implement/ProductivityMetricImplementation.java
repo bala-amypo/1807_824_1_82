@@ -62,7 +62,7 @@ public class ProductivityMetricImplementation implements ProductivityMetricServi
     }
 
     @Override
-    public List<ProductivityMetricRecord> getMetricsByEmployeeId(S employeeId) {
+    public List<ProductivityMetricRecord> getMetricsByEmployeeId(String employeeId) {
         return obj.findByEmployeeId(employeeId);
     }
 
