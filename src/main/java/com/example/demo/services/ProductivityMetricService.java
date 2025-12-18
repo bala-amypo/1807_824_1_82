@@ -9,7 +9,7 @@ public interface ProductivityMetricService {
 
     ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord updated);
 
-    List<ProductivityMetricRecord> getMetricsByEmployeeId(Long employeeId);
+    List<ProductivityMetricRecord> getMetricsByEmployeeId(String employeeId);
 
     ProductivityMetricRecord getMetricById(Long id);
 

@@ -35,7 +35,7 @@ public class ProductivityMetricController {
     
     @GetMapping("/employee/{employeeId}")
     public List<ProductivityMetricRecord> getMetricsByEmployee(
-            @PathVariable Long employeeId
+            @PathVariable String employeeId
     ) {
         return service.getMetricsByEmployeeId(employeeId);
     }
