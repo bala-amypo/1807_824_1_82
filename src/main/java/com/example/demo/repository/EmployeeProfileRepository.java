@@ -1,8 +1,9 @@
 package com.example.demo.repository;
-import com.example.demo.model.EmployeeProfile;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.model.EmployeeProfile;
 
-public interface EmployeeProfileRepository extends JpaRepository< EmployeeProfile,Long>
-{
+public interface EmployeeProfileRepository extends JpaRepository<EmployeeProfile, Long> {
 
+    EmployeeProfile findByEmployeeId(String employeeId);
 }
