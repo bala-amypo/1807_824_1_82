@@ -7,7 +7,7 @@ import com.example.demo.model.UserAccount;
 import com.example.demo.repository.UserAccountRepository;
 
 @Service
-public class UserAccountImplement implements UserAccountService {
+public class UserAccountImplementation implements UserAccountService {
 
     @Autowired
     UserAccountRepository obj;

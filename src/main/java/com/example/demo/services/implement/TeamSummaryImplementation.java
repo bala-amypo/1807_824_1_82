@@ -10,7 +10,7 @@ import com.example.demo.model.TeamSummaryRecord;
 import com.example.demo.repository.TeamSummaryRepository;
 
 @Service
-public class TeamSummaryImplement implements TeamSummaryService {
+public class TeamSummaryImplementation implements TeamSummaryService {
 
     @Autowired
     TeamSummaryRepository obj;
