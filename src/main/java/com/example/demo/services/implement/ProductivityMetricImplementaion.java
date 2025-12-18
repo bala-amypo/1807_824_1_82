@@ -17,15 +17,15 @@ public class ProductivityMetricImplement implements ProductivityMetricService {
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        // 🔹 Check duplicate metric for same employee & date
+        
         ProductivityMetricRecord existing =
                 obj.findByEmployeeIdAndDate(metric.getEmployeeId(), metric.getDate());
 
         if (existing != null) {
-            return null; // duplicate found
+            return null; 
         }
 
-        // 🔹 Use calculator (simple example)
+        
         Double score = calculateScore(
                 metric.getHoursLogged(),
                 metric.getTasksCompleted(),
@@ -76,7 +76,7 @@ public class ProductivityMetricImplement implements ProductivityMetricService {
         return obj.findAll();
     }
 
-    // 🔹 Simple calculator logic
+    
     private Double calculateScore(Double hours, Integer tasks, Integer meetings) {
         if (hours == null || tasks == null || meetings == null) {
             return 0.0;
