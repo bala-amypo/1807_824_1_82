@@ -1,3 +1,87 @@
-// public class TeamSummaryRecord {
-    
-// }
+package com.example.demo.model;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+
+@Entity
+@Table(
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"teamName", "summaryDate"})
+    }
+)
+public class TeamSummaryRecord {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String teamName;
+    private LocalDate summaryDate;
+
+    private Double avgHoursLogged;
+    private Double avgTasksCompleted;
+    private Double avgScore;
+
+    private Integer anomalyCount;
+
+    private LocalDateTime generatedAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.generatedAt = LocalDateTime.now();
+    }
+
+    public TeamSummaryRecord() {}
+
+    public TeamSummaryRecord(
+            Long id,
+            String teamName,
+            LocalDate summaryDate,
+            Double avgHoursLogged,
+            Double avgTasksCompleted,
+            Double avgScore,
+            Integer anomalyCount
+    ) {
+        this.id = id;
+        this.teamName = teamName;
+        this.summaryDate = summaryDate;
+        this.avgHoursLogged = avgHoursLogged;
+        this.avgTasksCompleted = avgTasksCompleted;
+        this.avgScore = avgScore;
+        this.anomalyCount = anomalyCount;
+    }
+
+    // Getters & Setters
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getTeamName() { return teamName; }
+    public void setTeamName(String teamName) { this.teamName = teamName; }
+
+    public LocalDate getSummaryDate() { return summaryDate; }
+    public void setSummaryDate(LocalDate summaryDate) { this.summaryDate = summaryDate; }
+
+    public Double getAvgHoursLogged() { return avgHoursLogged; }
+    public void setAvgHoursLogged(Double avgHoursLogged) { this.avgHoursLogged = avgHoursLogged; }
+
+    public Double getAvgTasksCompleted() { return avgTasksCompleted; }
+    public void setAvgTasksCompleted(Double avgTasksCompleted) { this.avgTasksCompleted = avgTasksCompleted; }
+
+    public Double getAvgScore() { return avgScore; }
+    public void setAvgScore(Double avgScore) { this.avgScore = avgScore; }
+
+    public Integer getAnomalyCount() { return anomalyCount; }
+    public void setAnomalyCount(Integer anomalyCount) { this.anomalyCount = anomalyCount; }
+
+    public LocalDateTime getGeneratedAt() { return generatedAt; }
+    public void setGeneratedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; }
+}
