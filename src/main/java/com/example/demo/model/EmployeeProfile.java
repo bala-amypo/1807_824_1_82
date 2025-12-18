@@ -80,28 +80,28 @@ public class ProductivityMetricRecord{
     public void setActiveLocalDateTime(LocalDateTime createdAt){
         this.createdAt=createdAt;
     }  
+    
+    public ProductivityMetricRecord() {}
+
     public ProductivityMetricRecord(
-        Long id,
-        Long employeeId,
-        LocalDate date,
-        Double hoursLogged,
-        Integer tasksCompleted,
-        Integer meetingsAttended,
-        Double productivityScore,
-        String rawDataJson,
-        LocalDateTime submittedAt
-) {
-    this.id = id;
-    this.employeeId = employeeId;
-    this.date = date;
-    this.hoursLogged = hoursLogged;
-    this.tasksCompleted = tasksCompleted;
-    this.meetingsAttended = meetingsAttended;
-    this.productivityScore = productivityScore;
-    this.rawDataJson = rawDataJson;
-    this.submittedAt = submittedAt;
-}
-
-public ProductivityMetricRecord() {}
-
+            Long id,
+            Long employeeId,
+            LocalDate date,
+            Double hoursLogged,
+            Integer tasksCompleted,
+            Integer meetingsAttended,
+            Double productivityScore,
+            String rawDataJson,
+            LocalDateTime submittedAt
+    ) {
+        this.id = id;
+        this.employeeId = employeeId;
+        this.date = date;
+        this.hoursLogged = hoursLogged;
+        this.tasksCompleted = tasksCompleted;
+        this.meetingsAttended = meetingsAttended;
+        this.productivityScore = productivityScore;
+        this.rawDataJson = rawDataJson;
+        this.submittedAt = submittedAt;
+    }
 }
