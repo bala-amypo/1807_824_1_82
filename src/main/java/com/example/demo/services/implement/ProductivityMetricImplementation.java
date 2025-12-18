@@ -17,15 +17,13 @@ public class ProductivityMetricImplementation implements ProductivityMetricServi
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        
         ProductivityMetricRecord existing =
                 obj.findByEmployeeIdAndDate(metric.getEmployeeId(), metric.getDate());
 
         if (existing != null) {
-            return null; 
+            return null;
         }
 
-        
         Double score = calculateScore(
                 metric.getHoursLogged(),
                 metric.getTasksCompleted(),
@@ -76,11 +74,10 @@ public class ProductivityMetricImplementation implements ProductivityMetricServi
         return obj.findAll();
     }
 
-    
     private Double calculateScore(Double hours, Integer tasks, Integer meetings) {
         if (hours == null || tasks == null || meetings == null) {
             return 0.0;
         }
-        return (hours * 2) + (tasks * 3) - (meetings * 1);
+        return (hours * 2) + (tasks * 3) - (meetings);
     }
 }
