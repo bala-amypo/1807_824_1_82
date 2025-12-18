@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EmployeeProfileRepository extends JpaRepository< EmployeeProfile,Long>
+public interface extends AnomalyFlagRecordRepository  JpaRepository<AnomalyFlagRecord,Long>
 {
 
 }
