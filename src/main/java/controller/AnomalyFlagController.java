@@ -15,7 +15,7 @@ public class AnomalyFlagController {
     @Autowired
     AnomalyFlagService service;
 
-    // POST /api/anomalies → Flag anomaly
+   
     @PostMapping
     public AnomalyFlagRecord flagAnomaly(
             @RequestBody AnomalyFlagRecord flag
