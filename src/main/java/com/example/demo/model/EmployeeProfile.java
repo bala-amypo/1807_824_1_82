@@ -1,202 +1,94 @@
 package com.example.demo.model;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-
 @Entity
-public class ProductivityMetricRecord {
-
-    @Id
+public class EmployeeProfile{
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    
     private String employeeId;
+
+ 
     private String fullName;
+
     private String email;
+
     private String teamName;
+
     private String role;
-    private Boolean active;
-
-    private LocalDate date;
-    private Double hoursLogged;
-    private Integer tasksCompleted;
-    private Integer meetingsAttended;
-    private Double productivityScore;
-
-    @Column(columnDefinition = "TEXT")
-    private String rawDataJson;
-
+   private Boolean active;
     private LocalDateTime createdAt;
-    private LocalDateTime submittedAt;
 
-    // Auto set createdAt
     @PrePersist
-    public void prePersist() {
+    public void prePersist(){
         this.createdAt = LocalDateTime.now();
     }
+    
 
-    // 🔹 No-args constructor (REQUIRED by JPA)
-    public ProductivityMetricRecord() {}
-
-    // 🔹 All-args constructor
-    public ProductivityMetricRecord(
-            Long id,
-            String employeeId,
-            String fullName,
-            String email,
-            String teamName,
-            String role,
-            Boolean active,
-            LocalDate date,
-            Double hoursLogged,
-            Integer tasksCompleted,
-            Integer meetingsAttended,
-            Double productivityScore,
-            String rawDataJson,
-            LocalDateTime submittedAt
-    ) {
-        this.id = id;
-        this.employeeId = employeeId;
-        this.fullName = fullName;
-        this.email = email;
-        this.teamName = teamName;
-        this.role = role;
-        this.active = active;
-        this.date = date;
-        this.hoursLogged = hoursLogged;
-        this.tasksCompleted = tasksCompleted;
-        this.meetingsAttended = meetingsAttended;
-        this.productivityScore = productivityScore;
-        this.rawDataJson = rawDataJson;
-        this.submittedAt = submittedAt;
-    }
-
-    // 🔹 Getters & Setters
-
-    public Long getId() {
+    public Long getId(){
         return id;
     }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long id){
+        this.id=id;
     }
-
-    public String getEmployeeId() {
+    public String getEmployeeId(){
         return employeeId;
     }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployeeId(String employeeId){
+        this.employeeId=employeeId;
     }
-
-    public String getFullName() {
+    public String getFullName(){
         return fullName;
     }
-
-    public void setFullName(String fullName) {
+    public void setFullName(String fullName){
         this.fullName = fullName;
     }
-
-    public String getEmail() {
+    public String getEmail(){
         return email;
     }
-
-    public void setEmail(String email) {
+    public void setEmail(String email){
         this.email = email;
     }
-
-    public String getTeamName() {
+    public String getTeamName(){
         return teamName;
     }
-
-    public void setTeamName(String teamName) {
+    public void setTeamName(String teamName){
         this.teamName = teamName;
     }
-
-    public String getRole() {
+    public String getRole(){
         return role;
     }
-
-    public void setRole(String role) {
+    public void setRole(String role){
         this.role = role;
     }
-
-    public Boolean getActive() {
+    public boolean getActive(){
         return active;
     }
-
-    public void setActive(Boolean active) {
+    public void setActive(Boolean active){
         this.active = active;
     }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public Double getHoursLogged() {
-        return hoursLogged;
-    }
-
-    public void setHoursLogged(Double hoursLogged) {
-        this.hoursLogged = hoursLogged;
-    }
-
-    public Integer getTasksCompleted() {
-        return tasksCompleted;
-    }
-
-    public void setTasksCompleted(Integer tasksCompleted) {
-        this.tasksCompleted = tasksCompleted;
-    }
-
-    public Integer getMeetingsAttended() {
-        return meetingsAttended;
-    }
-
-    public void setMeetingsAttended(Integer meetingsAttended) {
-        this.meetingsAttended = meetingsAttended;
-    }
-
-    public Double getProductivityScore() {
-        return productivityScore;
-    }
-
-    public void setProductivityScore(Double productivityScore) {
-        this.productivityScore = productivityScore;
-    }
-
-    public String getRawDataJson() {
-        return rawDataJson;
-    }
-
-    public void setRawDataJson(String rawDataJson) {
-        this.rawDataJson = rawDataJson;
-    }
-
-    public LocalDateTime getCreatedAt() {
+    public LocalDateTime getCreatedAt(){
         return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getSubmittedAt() {
-        return submittedAt;
-    }
-
-    public void setSubmittedAt(LocalDateTime submittedAt) {
-        this.submittedAt = submittedAt;
-    }
+    } 
+    public void setActiveLocalDateTime(LocalDateTime createdAt){
+        this.createdAt=createdAt;
+    } 
+    public EmployeeProfile(Long id, String employeeId, String fullName, String email, String teamName, String role, Boolean active, LocalDateTime createdAt){
+        this.id=id;
+        this.employeeId=employeeId;
+        this.fullName=fullName;
+        this.email=email;
+        this.teamName=teamName;
+        this.role=role;
+        this.active=active;
+        this.createdAt=createdAt;
+    }  
+    public EmployeeProfile(){}
 }
