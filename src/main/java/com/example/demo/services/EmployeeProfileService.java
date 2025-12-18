@@ -1,17 +1,15 @@
-package com.example.demo.service;
+public class UserImplement implements UserService{
+    @AutoWired
+    UserRepository obj;
+    User register(User user){
+        return obj.save(user);
+    }
+    String findByEmail(String email){
+        return obj.getById(email);
+    }
+    String getUser(Long id)
+    {
+        return obj.getById(id);
+    }
 
-import java.util.List;
-import com.example.demo.model.EmployeeProfile;
-
-public interface EmployeeProfileService {
-
-    EmployeeProfile createEmployee(EmployeeProfile employee);
-
-    EmployeeProfile getEmployeeById(Long id);
-
-    List<EmployeeProfile> getAllEmployees();
-
-    EmployeeProfile findByEmployeeId(String employeeId);
-
-    EmployeeProfile updateEmployeeStatus(Long id, boolean active);
 }
