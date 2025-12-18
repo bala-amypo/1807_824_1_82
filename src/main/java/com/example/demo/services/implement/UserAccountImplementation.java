@@ -14,7 +14,7 @@ public class UserAccountImplement implements UserAccountService {
 
     @Override
     public UserAccount registerUser(UserAccount user) {
-        // password is assumed to be already hashed
+    
         return obj.save(user);
     }
 

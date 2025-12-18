@@ -18,7 +18,7 @@ public class TeamSummaryImplement implements TeamSummaryService {
     @Override
     public TeamSummaryRecord generateSummary(String teamName, LocalDate summaryDate) {
 
-        // Prevent duplicate summary for same team & date
+        
         TeamSummaryRecord existing =
                 obj.findByTeamNameAndSummaryDate(teamName, summaryDate);
 
@@ -26,7 +26,7 @@ public class TeamSummaryImplement implements TeamSummaryService {
             return existing;
         }
 
-        // ⚠️ Values assumed to be computed elsewhere (service / query)
+       
         TeamSummaryRecord summary = new TeamSummaryRecord();
         summary.setTeamName(teamName);
         summary.setSummaryDate(summaryDate);
