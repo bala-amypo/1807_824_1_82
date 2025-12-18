@@ -42,7 +42,7 @@ public class AnomalyRuleImplementation implements AnomalyRuleService {
     }
 
     @Override
-    public AnomalyRule getRuleByCode(String ruleCode) {
+    public AnomalyRule getRuleByCode(String rule) {
         return obj.findByRuleCode(ruleCode);
     }
 
