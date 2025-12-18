@@ -31,12 +31,8 @@ public class AnomalyRule {
     private Double thresholdValue;
 
     private Boolean active;
-
-    // No-args constructor (required by JPA)
     public AnomalyRule() {
     }
-
-    // All-args constructor
     public AnomalyRule(
             Long id,
             String ruleCode,
@@ -52,8 +48,6 @@ public class AnomalyRule {
         this.thresholdValue = thresholdValue;
         this.active = active;
     }
-
-    // Getters & Setters
 
     public Long getId() {
         return id;

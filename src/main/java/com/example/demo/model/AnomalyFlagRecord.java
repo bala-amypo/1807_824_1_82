@@ -55,8 +55,6 @@ public class AnomalyFlagRecord {
         this.resolved = resolved;
     }
 
-    // Getters & Setters
-
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
