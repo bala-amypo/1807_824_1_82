@@ -42,4 +42,4 @@ public class EmployeeProfileController {
         return service.updateEmployeeStatus(id, active);
     }
 
-}   
+   
