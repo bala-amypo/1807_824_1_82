@@ -7,7 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 @Entity
-public class EmployeeProfile{
+public class ProductivityMetricRecord{
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -79,16 +79,29 @@ public class EmployeeProfile{
     } 
     public void setActiveLocalDateTime(LocalDateTime createdAt){
         this.createdAt=createdAt;
-    } 
-    public EmployeeProfile(Long id, String employeeId, String fullName, String email, String teamName, String role, Boolean active, LocalDateTime createdAt){
-        this.id=id;
-        this.employeeId=employeeId;
-        this.fullName=fullName;
-        this.email=email;
-        this.teamName=teamName;
-        this.role=role;
-        this.active=active;
-        this.createdAt=createdAt;
     }  
-    public EmployeeProfile(){}
+    public ProductivityMetricRecord(
+        Long id,
+        Long employeeId,
+        LocalDate date,
+        Double hoursLogged,
+        Integer tasksCompleted,
+        Integer meetingsAttended,
+        Double productivityScore,
+        String rawDataJson,
+        LocalDateTime submittedAt
+) {
+    this.id = id;
+    this.employeeId = employeeId;
+    this.date = date;
+    this.hoursLogged = hoursLogged;
+    this.tasksCompleted = tasksCompleted;
+    this.meetingsAttended = meetingsAttended;
+    this.productivityScore = productivityScore;
+    this.rawDataJson = rawDataJson;
+    this.submittedAt = submittedAt;
+}
+
+public ProductivityMetricRecord() {}
+
 }
