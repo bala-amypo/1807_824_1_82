@@ -9,7 +9,7 @@ import com.example.demo.model.AnomalyRule;
 import com.example.demo.repository.AnomalyRuleRepository;
 
 @Service
-public class AnomalyRuleImplement implements AnomalyRuleService {
+public class AnomalyRuleImplementation implements AnomalyRuleService {
 
     @Autowired
     AnomalyRuleRepository obj;

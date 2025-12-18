@@ -9,7 +9,7 @@ import com.example.demo.model.AnomalyFlagRecord;
 import com.example.demo.repository.AnomalyFlagRepository;
 
 @Service
-public class AnomalyFlagImplement implements AnomalyFlagService {
+public class AnomalyFlagImplementation implements AnomalyFlagService {
 
     @Autowired
     AnomalyFlagRepository obj;

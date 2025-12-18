@@ -9,7 +9,7 @@ import com.example.demo.model.EmployeeProfile;
 import com.example.demo.repository.EmployeeProfileRepository;
 
 @Service
-public class EmployeeProfileImplement implements EmployeeProfileService {
+public class EmployeeProfileImplementation implements EmployeeProfileService {
 
     @Autowired
     EmployeeProfileRepository obj;

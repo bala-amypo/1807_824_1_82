@@ -9,7 +9,7 @@ import com.example.demo.model.ProductivityMetricRecord;
 import com.example.demo.repository.ProductivityMetricRepository;
 
 @Service
-public class ProductivityMetricImplement implements ProductivityMetricService {
+public class ProductivityMetricImplementation implements ProductivityMetricService {
 
     @Autowired
     ProductivityMetricRepository obj;
