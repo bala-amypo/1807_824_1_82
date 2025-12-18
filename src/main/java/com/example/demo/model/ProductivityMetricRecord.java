@@ -78,8 +78,13 @@ public class ProductivityMetricRecord {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getEmployeeId() { return employeeId; }
-    public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
+    public String getEmployeeId() {
+    return employeeId;
+}
+
+public void setEmployeeId(String employeeId) {
+    this.employeeId = employeeId;
+}
 
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
