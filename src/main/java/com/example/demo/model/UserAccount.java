@@ -77,8 +77,8 @@ public class UserAccount {
     public String getPasswordHash() { return passwordHash; }
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
 
-    public Set<String> getRole() { return role; }
-    public void setRole(Set<String> role) { this.role = role; }
+    public Set<String> getRoles() { return role; }
+    public void setRoles(Set<String> role) { this.role = role; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
