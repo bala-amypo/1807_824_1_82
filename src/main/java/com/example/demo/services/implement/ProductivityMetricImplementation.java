@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.service.ProductivityMetricService;
+
 import com.example.demo.model.ProductivityMetricRecord;
 import com.example.demo.repository.ProductivityMetricRepository;
 
@@ -12,13 +12,17 @@ import com.example.demo.repository.ProductivityMetricRepository;
 public class ProductivityMetricImplementation implements ProductivityMetricService {
 
     @Autowired
-    ProductivityMetricRepository obj;
+    private ProductivityMetricRepository obj;
 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
+        // 🔧 FIX: convert Long → String
         ProductivityMetricRecord existing =
-                obj.findByEmployeeIdAndDate(metric.getEmployeeId(), metric.getDate());
+                obj.findByEmployeeIdAndDate(
+                        metric.getEmployeeId().toString(),
+                        metric.getDate()
+                );
 
         if (existing != null) {
             return null;
@@ -78,6 +82,6 @@ public class ProductivityMetricImplementation implements ProductivityMetricServi
         if (hours == null || tasks == null || meetings == null) {
             return 0.0;
         }
-        return (hours * 2) + (tasks * 3) - (meetings);
+        return (hours * 2) + (tasks * 3) - meetings;
     }
 }
