@@ -17,11 +17,12 @@ import lombok.Setter;
 import java.sql.Timestamp;
 
 
-@Entity
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class TeamSummaryRecord {
 
     @Id
@@ -30,18 +31,36 @@ public class TeamSummaryRecord {
 
     private String teamName;
     private LocalDate summaryDate;
-
     private Double avgHoursLogged;
     private Double avgTasksCompleted;
     private Double avgScore;
-
     private Integer anomalyCount;
 
-    private LocalDateTime generatedAt;
-
-    @PrePersist
-    public void prePersist() {
-        this.generatedAt = LocalDateTime.now();
+    public Long getId() {
+        return id;
     }
 
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public void setSummaryDate(LocalDate summaryDate) {
+        this.summaryDate = summaryDate;
+    }
+
+    public void setAvgHoursLogged(Double avgHoursLogged) {
+        this.avgHoursLogged = avgHoursLogged;
+    }
+
+    public void setAvgTasksCompleted(Double avgTasksCompleted) {
+        this.avgTasksCompleted = avgTasksCompleted;
+    }
+
+    public void setAvgScore(Double avgScore) {
+        this.avgScore = avgScore;
+    }
+
+    public void setAnomalyCount(Integer anomalyCount) {
+        this.anomalyCount = anomalyCount;
+    }
 }
