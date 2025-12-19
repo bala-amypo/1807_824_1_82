@@ -7,14 +7,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.sql.Timestamp;
+
 
 @Entity
-@Table(
-    name = "anomaly_rule",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = "ruleCode")
-    }
-)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AnomalyRule {
 
     @Id
@@ -31,69 +35,5 @@ public class AnomalyRule {
     private Double thresholdValue;
 
     private Boolean active;
-    public AnomalyRule() {
-    }
-    public AnomalyRule(
-            Long id,
-            String ruleCode,
-            String description,
-            String thresholdType,
-            Double thresholdValue,
-            Boolean active
-    ) {
-        this.id = id;
-        this.ruleCode = ruleCode;
-        this.description = description;
-        this.thresholdType = thresholdType;
-        this.thresholdValue = thresholdValue;
-        this.active = active;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getRuleCode() {
-        return ruleCode;
-    }
-
-    public void setRuleCode(String ruleCode) {
-        this.ruleCode = ruleCode;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getThresholdType() {
-        return thresholdType;
-    }
-
-    public void setThresholdType(String thresholdType) {
-        this.thresholdType = thresholdType;
-    }
-
-    public Double getThresholdValue() {
-        return thresholdValue;
-    }
-
-    public void setThresholdValue(Double thresholdValue) {
-        this.thresholdValue = thresholdValue;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
+   
 }

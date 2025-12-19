@@ -26,11 +26,6 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
-    }
-)
 public class UserAccount {
 
     @Id

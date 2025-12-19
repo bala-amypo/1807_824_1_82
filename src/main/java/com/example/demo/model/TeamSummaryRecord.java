@@ -10,13 +10,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.sql.Timestamp;
+
 
 @Entity
-@Table(
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"teamName", "summaryDate"})
-    }
-)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class TeamSummaryRecord {
 
     @Id
@@ -39,47 +44,4 @@ public class TeamSummaryRecord {
         this.generatedAt = LocalDateTime.now();
     }
 
-    public TeamSummaryRecord() {}
-
-    public TeamSummaryRecord(
-            Long id,
-            String teamName,
-            LocalDate summaryDate,
-            Double avgHoursLogged,
-            Double avgTasksCompleted,
-            Double avgScore,
-            Integer anomalyCount
-    ) {
-        this.id = id;
-        this.teamName = teamName;
-        this.summaryDate = summaryDate;
-        this.avgHoursLogged = avgHoursLogged;
-        this.avgTasksCompleted = avgTasksCompleted;
-        this.avgScore = avgScore;
-        this.anomalyCount = anomalyCount;
-    }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getTeamName() { return teamName; }
-    public void setTeamName(String teamName) { this.teamName = teamName; }
-
-    public LocalDate getSummaryDate() { return summaryDate; }
-    public void setSummaryDate(LocalDate summaryDate) { this.summaryDate = summaryDate; }
-
-    public Double getAvgHoursLogged() { return avgHoursLogged; }
-    public void setAvgHoursLogged(Double avgHoursLogged) { this.avgHoursLogged = avgHoursLogged; }
-
-    public Double getAvgTasksCompleted() { return avgTasksCompleted; }
-    public void setAvgTasksCompleted(Double avgTasksCompleted) { this.avgTasksCompleted = avgTasksCompleted; }
-
-    public Double getAvgScore() { return avgScore; }
-    public void setAvgScore(Double avgScore) { this.avgScore = avgScore; }
-
-    public Integer getAnomalyCount() { return anomalyCount; }
-    public void setAnomalyCount(Integer anomalyCount) { this.anomalyCount = anomalyCount; }
-
-    public LocalDateTime getGeneratedAt() { return generatedAt; }
-    public void setGeneratedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; }
 }
