@@ -76,6 +76,7 @@
     <build>
         <plugins>
 
+
             <!-- Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
