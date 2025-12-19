@@ -14,26 +14,41 @@ import lombok.Setter;
 import java.sql.Timestamp;
 
 
-@Entity
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class AnomalyRule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
     private String ruleCode;
-
     private String description;
-
     private String thresholdType;
-
     private Double thresholdValue;
-
     private Boolean active;
-   
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getThresholdType() {
+        return thresholdType;
+    }
+
+    public Double getThresholdValue() {
+        return thresholdValue;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
 }

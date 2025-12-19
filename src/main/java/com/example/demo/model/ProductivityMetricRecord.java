@@ -16,40 +16,46 @@ import lombok.Setter;
 import java.sql.Timestamp;
 
 
-@Entity
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class ProductivityMetricRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String employeeId;
-    private String fullName;
-    private String email;
-    private String teamName;
-    private String role;
-    private Boolean active;
-
+    private Long employeeId;
     private LocalDate date;
     private Double hoursLogged;
     private Integer tasksCompleted;
     private Integer meetingsAttended;
     private Double productivityScore;
 
-    @Column(columnDefinition = "TEXT")
-    private String rawDataJson;
-
-    private LocalDateTime createdAt;
-    private LocalDateTime submittedAt;
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-   
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Double getHoursLogged() {
+        return hoursLogged;
+    }
+
+    public Integer getTasksCompleted() {
+        return tasksCompleted;
+    }
+
+    public Integer getMeetingsAttended() {
+        return meetingsAttended;
+    }
+
+    public void setProductivityScore(Double productivityScore) {
+        this.productivityScore = productivityScore;
+    }
 }

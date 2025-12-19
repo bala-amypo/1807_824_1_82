@@ -13,33 +13,44 @@ import lombok.Setter;
 import java.sql.Timestamp;
 
 
-@Entity
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeProfile{
-    @Id 
+@Entity
+public class EmployeeProfile {
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
     private String employeeId;
-
- 
     private String fullName;
-
     private String email;
-
     private String teamName;
-
     private String role;
-   private Boolean active;
-    private LocalDateTime createdAt;
+    private Boolean active;
 
-    @PrePersist
-    public void prePersist(){
-        this.createdAt = LocalDateTime.now();
+    // ✅ REQUIRED GETTERS & SETTERS
+
+    public Long getId() {
+        return id;
     }
-    
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }

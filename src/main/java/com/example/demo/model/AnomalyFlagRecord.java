@@ -20,29 +20,20 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class AnomalyFlagRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long employeeId;
-    private Long metricId;
-
-    private String ruleCode;
-    private String severity;
-
-    @Column(columnDefinition = "TEXT")
-    private String details;
-
-    private LocalDateTime flaggedAt;
-
     private Boolean resolved;
 
-    @PrePersist
-    public void prePersist() {
-        this.flaggedAt = LocalDateTime.now();
-        this.resolved = false; // default
+    public Boolean getResolved() {
+        return resolved;
+    }
+
+    public void setResolved(Boolean resolved) {
+        this.resolved = resolved;
     }
 }
-    
