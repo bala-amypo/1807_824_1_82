@@ -8,8 +8,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.sql.Timestamp;
+
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AnomalyFlagRecord {
 
     @Id
@@ -34,5 +44,5 @@ public class AnomalyFlagRecord {
         this.flaggedAt = LocalDateTime.now();
         this.resolved = false; // default
     }
-
+}
     
