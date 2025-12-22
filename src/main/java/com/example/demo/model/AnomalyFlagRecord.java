@@ -12,6 +12,8 @@ public class AnomalyFlagRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long employeeId;
+
     private Boolean resolved;
 
     public AnomalyFlagRecord() {
@@ -20,6 +22,13 @@ public class AnomalyFlagRecord {
     public AnomalyFlagRecord(Long id, Boolean resolved) {
         this.id = id;
         this.resolved = resolved;
+    }
+        public Long employeeId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getId() {
