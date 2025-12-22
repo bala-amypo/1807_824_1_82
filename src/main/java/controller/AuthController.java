@@ -1,9 +1,5 @@
 package com.example.demo.controller;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.UserAccount;
@@ -13,16 +9,17 @@ import com.example.demo.service.UserAccountService;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    UserAccountService service;
+    private final UserAccountService service;
 
-   
+    public AuthController(UserAccountService service) {
+        this.service = service;
+    }
+
     @PostMapping("/register")
     public UserAccount register(@RequestBody UserAccount user) {
         return service.registerUser(user);
     }
 
-    
     @PostMapping("/login")
     public String login(@RequestBody UserAccount user) {
 
@@ -32,7 +29,6 @@ public class AuthController {
             return "User not found";
         }
 
-        
         if (existing.getPasswordHash().equals(user.getPasswordHash())) {
             return "Login successful";
         }
