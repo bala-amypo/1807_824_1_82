@@ -13,16 +13,11 @@ public class AnomalyFlagRecord {
     private Long id;
 
     private Long employeeId;
+    private Long metricId;
 
     private Boolean resolved;
 
-    public AnomalyFlagRecord() {
-    }
-
-    public AnomalyFlagRecord(Long employeeId, Boolean resolved) {
-        this.employeeId = employeeId;
-        this.resolved = resolved;
-    }
+    public AnomalyFlagRecord() {}
 
     public Long getId() {
         return id;
@@ -38,6 +33,14 @@ public class AnomalyFlagRecord {
 
     public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public Long getMetricId() {
+        return metricId;
+    }
+
+    public void setMetricId(Long metricId) {
+        this.metricId = metricId;
     }
 
     public Boolean getResolved() {
