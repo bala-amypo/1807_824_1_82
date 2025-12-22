@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.TeamSummaryRecord;
@@ -13,10 +12,12 @@ import com.example.demo.service.TeamSummaryService;
 @RequestMapping("/api/team-summaries")
 public class TeamSummaryController {
 
-    @Autowired
-    TeamSummaryService service;
+    private final TeamSummaryService service;
 
-   
+    public TeamSummaryController(TeamSummaryService service) {
+        this.service = service;
+    }
+
     @PostMapping("/generate")
     public TeamSummaryRecord generateSummary(
             @RequestParam String teamName,
@@ -26,13 +27,11 @@ public class TeamSummaryController {
         return service.generateSummary(teamName, date);
     }
 
-    
     @GetMapping("/team/{teamName}")
     public List<TeamSummaryRecord> getByTeam(@PathVariable String teamName) {
         return service.getSummariesByTeam(teamName);
     }
 
-    
     @GetMapping("/{id}")
     public TeamSummaryRecord getById(@PathVariable Long id) {
         return service.getAllSummaries()
@@ -42,7 +41,6 @@ public class TeamSummaryController {
                 .orElse(null);
     }
 
-    
     @GetMapping
     public List<TeamSummaryRecord> getAllSummaries() {
         return service.getAllSummaries();
