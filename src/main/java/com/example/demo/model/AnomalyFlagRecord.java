@@ -24,11 +24,11 @@ public class AnomalyFlagRecord {
         this.resolved = resolved;
     }
         public Long employeeId() {
-        return id;
+        return emplloyeeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setemployeeid(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public Long getId() {
