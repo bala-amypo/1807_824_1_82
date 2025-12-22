@@ -10,12 +10,12 @@ import com.example.demo.model.ProductivityMetricRecord;
 public interface ProductivityMetricRepository
         extends JpaRepository<ProductivityMetricRecord, Long> {
 
-    // Check duplicate metric for same employee & date
+    
     ProductivityMetricRecord findByEmployeeIdAndDate(
             String employeeId,
             LocalDate date
     );
 
-    // Get all metrics of an employee
+    
     List<ProductivityMetricRecord> findByEmployeeId(String employeeId);
 }

@@ -1,23 +1,10 @@
 package com.example.demo.model;
-import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import java.sql.Timestamp;
+import jakarta.persistence.Id;
 
-
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class EmployeeProfile {
 
@@ -32,10 +19,26 @@ public class EmployeeProfile {
     private String role;
     private Boolean active;
 
-    // ✅ REQUIRED GETTERS & SETTERS
+    public EmployeeProfile() {
+    }
+
+    public EmployeeProfile(Long id, String employeeId, String fullName,
+                           String email, String teamName, String role, Boolean active) {
+        this.id = id;
+        this.employeeId = employeeId;
+        this.fullName = fullName;
+        this.email = email;
+        this.teamName = teamName;
+        this.role = role;
+        this.active = active;
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmployeeId() {
@@ -44,6 +47,38 @@ public class EmployeeProfile {
 
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Boolean getActive() {
