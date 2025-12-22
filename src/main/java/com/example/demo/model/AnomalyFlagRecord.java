@@ -1,13 +1,12 @@
 package com.example.demo.model;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,25 +14,41 @@ import lombok.Setter;
 import java.sql.Timestamp;
 
 
-@Entity
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class AnomalyFlagRecord {
+@Entity
+public class AnomalyRule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Boolean resolved;
+    private String ruleCode;
+    private String description;
+    private String thresholdType;
+    private Double thresholdValue;
+    private Boolean active;
 
-    public Boolean getResolved() {
-        return resolved;
+    public Long getId() {
+        return id;
     }
 
-    public void setResolved(Boolean resolved) {
-        this.resolved = resolved;
+    public String getDescription() {
+        return description;
+    }
+
+    public String getThresholdType() {
+        return thresholdType;
+    }
+
+    public Double getThresholdValue() {
+        return thresholdValue;
+    }
+
+    public Boolean getActive() {
+        return active;
     }
 }
