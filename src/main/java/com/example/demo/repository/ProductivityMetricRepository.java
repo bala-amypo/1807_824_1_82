@@ -10,12 +10,7 @@ import com.example.demo.model.ProductivityMetricRecord;
 public interface ProductivityMetricRepository
         extends JpaRepository<ProductivityMetricRecord, Long> {
 
-    
-    ProductivityMetricRecord findByEmployeeIdAndDate(
-            String employeeId,
-            LocalDate date
-    );
+    ProductivityMetricRecord findByEmployeeIdAndDate(Long employeeId, LocalDate date);
 
-    
-    List<ProductivityMetricRecord> findByEmployeeId(String employeeId);
+    List<ProductivityMetricRecord> findByEmployeeId(Long employeeId);
 }

@@ -1,17 +1,54 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.example.demo.model.ProductivityMetricRecord;
+import com.example.demo.repository.ProductivityMetricRepository;
+import com.example.demo.service.ProductivityMetricService;
 
-public interface ProductivityMetricService {
+@Service
+public class ProductivityMetricImplementation implements ProductivityMetricService {
 
-    ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric);
+    private final ProductivityMetricRepository repository;
 
-    ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord updated);
+    public ProductivityMetricImplementation(ProductivityMetricRepository repository) {
+        this.repository = repository;
+    }
 
-    List<ProductivityMetricRecord> getMetricsByEmployeeId(String employeeId);
+    @Override
+    public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
+        return repository.save(metric);
+    }
 
-    ProductivityMetricRecord getMetricById(Long id);
+    @Override
+    public ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord updated) {
 
-    List<ProductivityMetricRecord> getAllMetrics();
+        ProductivityMetricRecord existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Metric not found"));
+
+        existing.setHoursLogged(updated.getHoursLogged());
+        existing.setTasksCompleted(updated.getTasksCompleted());
+        existing.setMeetingsAttended(updated.getMeetingsAttended());
+        existing.setProductivityScore(updated.getProductivityScore());
+
+        return repository.save(existing);
+    }
+
+    @Override
+    public List<ProductivityMetricRecord> getMetricsByEmployeeId(Long employeeId) {
+        return repository.findByEmployeeId(employeeId);
+    }
+
+    @Override
+    public ProductivityMetricRecord getMetricById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Metric not found"));
+    }
+
+    @Override
+    public List<ProductivityMetricRecord> getAllMetrics() {
+        return repository.findAll();
+    }
 }
