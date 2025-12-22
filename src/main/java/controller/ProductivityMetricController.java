@@ -1,90 +1,51 @@
-package com.example.demo.model;
+package com.example.demo.controller;
 
-import java.time.LocalDate;
+import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import org.springframework.web.bind.annotation.*;
 
-@Entity
-public class ProductivityMetricRecord {
+import com.example.demo.model.ProductivityMetricRecord;
+import com.example.demo.service.ProductivityMetricService;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@RestController
+@RequestMapping("/api/metrics")
+public class ProductivityMetricController {
 
-    private Long employeeId;
-    private LocalDate date;
-    private Double hoursLogged;
-    private Integer tasksCompleted;
-    private Integer meetingsAttended;
-    private Double productivityScore;
+    private final ProductivityMetricService service;
 
-    public ProductivityMetricRecord() {
+    public ProductivityMetricController(ProductivityMetricService service) {
+        this.service = service;
     }
 
-    public ProductivityMetricRecord(Long id, Long employeeId, LocalDate date,
-                                    Double hoursLogged, Integer tasksCompleted,
-                                    Integer meetingsAttended, Double productivityScore) {
-        this.id = id;
-        this.employeeId = employeeId;
-        this.date = date;
-        this.hoursLogged = hoursLogged;
-        this.tasksCompleted = tasksCompleted;
-        this.meetingsAttended = meetingsAttended;
-        this.productivityScore = productivityScore;
+    @PostMapping
+    public ProductivityMetricRecord recordMetric(
+            @RequestBody ProductivityMetricRecord metric
+    ) {
+        return service.recordMetric(metric);
     }
 
-    public Long getId() {
-        return id;
+    @PutMapping("/{id}")
+    public ProductivityMetricRecord updateMetric(
+            @PathVariable Long id,
+            @RequestBody ProductivityMetricRecord updated
+    ) {
+        return service.updateMetric(id, updated);
     }
 
-    public Long getEmployeeId() {
-        return employeeId;
+    @GetMapping("/employee/{employeeId}")
+    public List<ProductivityMetricRecord> getMetricsByEmployee(
+            @PathVariable Long employeeId
+    ) {
+        return service.getMetricsByEmployeeId(employeeId);
     }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
+    @GetMapping("/{id}")
+    public ProductivityMetricRecord getMetricById(@PathVariable Long id) {
+        return service.getMetricById(id);
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public Double getHoursLogged() {
-        return hoursLogged;
-    }
-
-    public void setHoursLogged(Double hoursLogged) {
-        this.hoursLogged = hoursLogged;
-    }
-
-    public Integer getTasksCompleted() {
-        return tasksCompleted;
-    }
-
-    public void setTasksCompleted(Integer tasksCompleted) {
-        this.tasksCompleted = tasksCompleted;
-    }
-
-    public Integer getMeetingsAttended() {
-        return meetingsAttended;
-    }
-
-    public void setMeetingsAttended(Integer meetingsAttended) {
-        this.meetingsAttended = meetingsAttended;
-    }
-
-    public Double getProductivityScore() {
-        return productivityScore;
-    }
-
-    public void setProductivityScore(Double productivityScore) {
-        this.productivityScore = productivityScore;
+    @GetMapping
+    public List<ProductivityMetricRecord> getAllMetrics() {
+        return service.getAllMetrics();
     }
 }
