@@ -2,11 +2,11 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.AnomalyFlag;
+import com.example.demo.model.AnomalyFlagRecord;
 import com.example.demo.repository.AnomalyFlagRepository;
+
 @Service
 public class AnomalyFlagImplementation implements AnomalyFlagService {
 
