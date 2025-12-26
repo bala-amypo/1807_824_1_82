@@ -16,7 +16,11 @@ public class AnomalyFlagRecord {
     private String severity;
     private String details;
 
-    // getters & setters
+    public AnomalyFlagRecord() {}
+
+    public Long getId() {
+        return id;
+    }
 
     public String getRuleCode() {
         return ruleCode;
