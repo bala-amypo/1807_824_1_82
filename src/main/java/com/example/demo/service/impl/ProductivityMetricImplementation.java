@@ -3,63 +3,33 @@ package com.example.demo.service.impl;
 import com.example.demo.model.ProductivityMetricRecord;
 import com.example.demo.repository.ProductivityMetricRecordRepository;
 import com.example.demo.service.ProductivityMetricService;
-import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
 
 @Service
-public class ProductivityMetricImplementation
-        implements ProductivityMetricService {
+public class ProductivityMetricImplementation implements ProductivityMetricService {
 
-    private final ProductivityMetricRecordRepository repo;
+    private final ProductivityMetricRecordRepository metricRepo;
 
-    public ProductivityMetricImplementation(ProductivityMetricRecordRepository repo) {
-        this.repo = repo;
+    public ProductivityMetricImplementation(ProductivityMetricRecordRepository metricRepo) {
+        this.metricRepo = metricRepo;
     }
 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
-        
-        return repo.save(metric);
-    }
-    
-
-    @Override
-    public ProductivityMetricRecord updateMetric(
-            Long id,
-            ProductivityMetricRecord metric) {
-
-        ProductivityMetricRecord existing = getMetricById(id);
-
-        existing.setDate(metric.getDate());
-        existing.setHoursLogged(metric.getHoursLogged());
-        existing.setTasksCompleted(metric.getTasksCompleted());
-        existing.setMeetingsAttended(metric.getMeetingsAttended());
-        existing.setProductivityScore(metric.getProductivityScore());
-
-        return repo.save(existing);
+        return metricRepo.save(metric);
     }
 
     @Override
-    public ProductivityMetricRecord getMetricById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Metric not found"));
+    public Optional<ProductivityMetricRecord> getMetricById(Long id) {
+        return metricRepo.findById(id);
     }
-
-    @Override
-    public List<ProductivityMetricRecord> getMetricsByEmployee(Long employeeId) {
-        return repo.findByEmployeeId(employeeId);
-    }
-    @Override
-public Optional<ProductivityMetricRecord> getMetricById(Long id) {
-    return metricRepo.findById(id);
-}
-
 
     @Override
     public List<ProductivityMetricRecord> getAllMetrics() {
-        return repo.findAll();
+        return metricRepo.findAll();
     }
 }

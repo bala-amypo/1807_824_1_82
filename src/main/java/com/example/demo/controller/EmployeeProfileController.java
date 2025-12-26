@@ -2,14 +2,15 @@ package com.example.demo.controller;
 
 import com.example.demo.model.EmployeeProfile;
 import com.example.demo.service.EmployeeProfileService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/employees")
-@Tag(name = "Employees")
 public class EmployeeProfileController {
 
     private final EmployeeProfileService service;
@@ -18,28 +19,13 @@ public class EmployeeProfileController {
         this.service = service;
     }
 
-    @PostMapping
-    public EmployeeProfile create(@RequestBody EmployeeProfile e) {
-        return service.createEmployee(e);
-    }
-
-    @GetMapping("/{id}")
-    public EmployeeProfile get(@PathVariable Long id) {
-        return service.getEmployeeById(id);
-    }
-
-    @GetMapping
-    public List<EmployeeProfile> all() {
+    @GetMapping("/employees")
+    public List<EmployeeProfile> getAllEmployees() {
         return service.getAllEmployees();
     }
 
-    @PutMapping("/{id}/status")
-    public EmployeeProfile updateStatus(@PathVariable Long id, @RequestParam boolean active) {
-        return service.updateEmployeeStatus(id, active);
-    }
-
-    @GetMapping("/lookup/{employeeId}")
-    public EmployeeProfile lookup(@PathVariable String employeeId) {
-        return service.findByEmployeeId(employeeId);
+    @GetMapping("/employees/{empId}")
+    public Optional<EmployeeProfile> getByEmployeeId(@PathVariable String empId) {
+        return service.findByEmployeeId(empId);
     }
 }

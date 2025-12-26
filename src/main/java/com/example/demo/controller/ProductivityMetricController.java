@@ -2,14 +2,15 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ProductivityMetricRecord;
 import com.example.demo.service.ProductivityMetricService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/metrics")
-@Tag(name = "Metrics")
 public class ProductivityMetricController {
 
     private final ProductivityMetricService service;
@@ -18,30 +19,13 @@ public class ProductivityMetricController {
         this.service = service;
     }
 
-    @PostMapping
-    public ProductivityMetricRecord record(@RequestBody ProductivityMetricRecord m) {
-        return service.recordMetric(m);
-    }
-
-    @PutMapping("/{id}")
-    public ProductivityMetricRecord update(
-            @PathVariable Long id,
-            @RequestBody ProductivityMetricRecord m) {
-        return service.updateMetric(id, m);
-    }
-
-    @GetMapping("/employee/{employeeId}")
-    public List<ProductivityMetricRecord> byEmployee(@PathVariable Long employeeId) {
-        return service.getMetricsByEmployee(employeeId);
-    }
-
-    @GetMapping("/{id}")
-    public ProductivityMetricRecord get(@PathVariable Long id) {
-        return service.getMetricById(id);
-    }
-
-    @GetMapping
-    public List<ProductivityMetricRecord> all() {
+    @GetMapping("/metrics")
+    public List<ProductivityMetricRecord> getAll() {
         return service.getAllMetrics();
+    }
+
+    @GetMapping("/metrics/{id}")
+    public Optional<ProductivityMetricRecord> getById(@PathVariable Long id) {
+        return service.getMetricById(id);
     }
 }

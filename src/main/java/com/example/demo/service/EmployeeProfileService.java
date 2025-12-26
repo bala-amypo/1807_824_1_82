@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.model.EmployeeProfile;
+
+import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeProfileService {
@@ -11,6 +13,7 @@ public interface EmployeeProfileService {
 
     EmployeeProfile getEmployeeById(Long id);
 
-    // 🔥 REQUIRED BY TEST
     Optional<EmployeeProfile> findByEmployeeId(String employeeId);
+
+    List<EmployeeProfile> getAllEmployees();
 }
