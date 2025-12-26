@@ -1,8 +1,10 @@
 package com.example.demo.service.impl;
 
-import java.util.Optional;
 import com.example.demo.model.EmployeeProfile;
 import com.example.demo.service.EmployeeProfileService;
+
+import java.util.List;
+import java.util.Optional;
 
 public class EmployeeProfileImplementation implements EmployeeProfileService {
 
@@ -26,5 +28,11 @@ public class EmployeeProfileImplementation implements EmployeeProfileService {
         EmployeeProfile e = new EmployeeProfile();
         e.setActive(active);
         return e;
+    }
+
+    // 🔥 ADD THIS
+    @Override
+    public List<EmployeeProfile> getAllEmployees() {
+        return List.of();
     }
 }
