@@ -1,14 +1,15 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.ProductivityMetricRecord;
 import com.example.demo.service.ProductivityMetricService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/metrics")
+@Tag(name = "Metrics")
 public class ProductivityMetricController {
 
     private final ProductivityMetricService service;
@@ -18,34 +19,29 @@ public class ProductivityMetricController {
     }
 
     @PostMapping
-    public ProductivityMetricRecord recordMetric(
-            @RequestBody ProductivityMetricRecord metric
-    ) {
-        return service.recordMetric(metric);
+    public ProductivityMetricRecord record(@RequestBody ProductivityMetricRecord m) {
+        return service.recordMetric(m);
     }
 
     @PutMapping("/{id}")
-    public ProductivityMetricRecord updateMetric(
+    public ProductivityMetricRecord update(
             @PathVariable Long id,
-            @RequestBody ProductivityMetricRecord updated
-    ) {
-        return service.updateMetric(id, updated);
+            @RequestBody ProductivityMetricRecord m) {
+        return service.updateMetric(id, m);
     }
 
     @GetMapping("/employee/{employeeId}")
-    public List<ProductivityMetricRecord> getMetricsByEmployee(
-            @PathVariable Long employeeId
-    ) {
-        return service.getMetricsByEmployeeId(employeeId);
+    public List<ProductivityMetricRecord> byEmployee(@PathVariable Long employeeId) {
+        return service.getMetricsByEmployee(employeeId);
     }
 
     @GetMapping("/{id}")
-    public ProductivityMetricRecord getMetricById(@PathVariable Long id) {
+    public ProductivityMetricRecord get(@PathVariable Long id) {
         return service.getMetricById(id);
     }
 
     @GetMapping
-    public List<ProductivityMetricRecord> getAllMetrics() {
+    public List<ProductivityMetricRecord> all() {
         return service.getAllMetrics();
     }
 }

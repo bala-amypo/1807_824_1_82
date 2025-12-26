@@ -1,14 +1,15 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.AnomalyFlagRecord;
 import com.example.demo.service.AnomalyFlagService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/anomalies")
+@Tag(name = "Anomalies")
 public class AnomalyFlagController {
 
     private final AnomalyFlagService service;
@@ -18,33 +19,27 @@ public class AnomalyFlagController {
     }
 
     @PostMapping
-    public AnomalyFlagRecord flagAnomaly(
-            @RequestBody AnomalyFlagRecord flag
-    ) {
-        return service.flagAnomaly(flag);
+    public AnomalyFlagRecord flag(@RequestBody AnomalyFlagRecord f) {
+        return service.flagAnomaly(f);
     }
 
     @PutMapping("/{id}/resolve")
-    public AnomalyFlagRecord resolveAnomaly(@PathVariable Long id) {
+    public AnomalyFlagRecord resolve(@PathVariable Long id) {
         return service.resolveFlag(id);
     }
 
     @GetMapping("/employee/{employeeId}")
-    public List<AnomalyFlagRecord> getByEmployee(
-            @PathVariable Long employeeId
-    ) {
+    public List<AnomalyFlagRecord> byEmployee(@PathVariable Long employeeId) {
         return service.getFlagsByEmployee(employeeId);
     }
 
     @GetMapping("/metric/{metricId}")
-    public List<AnomalyFlagRecord> getByMetric(
-            @PathVariable Long metricId
-    ) {
+    public List<AnomalyFlagRecord> byMetric(@PathVariable Long metricId) {
         return service.getFlagsByMetric(metricId);
     }
 
     @GetMapping
-    public List<AnomalyFlagRecord> getAllFlags() {
+    public List<AnomalyFlagRecord> all() {
         return service.getAllFlags();
     }
 }

@@ -1,14 +1,15 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.AnomalyRule;
 import com.example.demo.service.AnomalyRuleService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/anomaly-rules")
+@Tag(name = "Anomaly Rules")
 public class AnomalyRuleController {
 
     private final AnomalyRuleService service;
@@ -18,34 +19,27 @@ public class AnomalyRuleController {
     }
 
     @PostMapping
-    public AnomalyRule createRule(@RequestBody AnomalyRule rule) {
+    public AnomalyRule create(@RequestBody AnomalyRule rule) {
         return service.createRule(rule);
     }
 
     @PutMapping("/{id}")
-    public AnomalyRule updateRule(
-            @PathVariable Long id,
-            @RequestBody AnomalyRule updatedRule
-    ) {
-        return service.updateRule(id, updatedRule);
+    public AnomalyRule update(@PathVariable Long id, @RequestBody AnomalyRule r) {
+        return service.updateRule(id, r);
     }
 
     @GetMapping("/active")
-    public List<AnomalyRule> getActiveRules() {
+    public List<AnomalyRule> active() {
         return service.getActiveRules();
     }
 
     @GetMapping("/{id}")
-    public AnomalyRule getRuleById(@PathVariable Long id) {
-        return service.getAllRules()
-                .stream()
-                .filter(rule -> rule.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+    public AnomalyRule get(@PathVariable Long id) {
+        return service.getRuleById(id);
     }
 
     @GetMapping
-    public List<AnomalyRule> getAllRules() {
+    public List<AnomalyRule> all() {
         return service.getAllRules();
     }
 }
