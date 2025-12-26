@@ -6,9 +6,11 @@ import java.util.Optional;
 
 public interface ProductivityMetricService {
 
-    ProductivityMetricRecord save(ProductivityMetricRecord record);
+    ProductivityMetricRecord recordMetric(ProductivityMetricRecord record);
 
     Optional<ProductivityMetricRecord> getMetricById(Long id);
 
     List<ProductivityMetricRecord> getMetricsByEmployee(Long employeeId);
+
+    List<ProductivityMetricRecord> getAllMetrics();
 }
