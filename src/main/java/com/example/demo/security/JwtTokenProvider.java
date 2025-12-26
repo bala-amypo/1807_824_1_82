@@ -1,27 +1,41 @@
-package com.example.demo.security;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
+package com.example.OneToMany.security;
 
 import java.util.Date;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+
+import javax.crypto.SecretKey;
+
+import org.springframework.stereotype.Component;
 
 @Component
-public class JwtTokenProvider {
+public class JwtUtil {
 
-    private final String SECRET_KEY = "secret-key-123";
-    private final long EXPIRATION_TIME = 86400000; // 1 day
+    // Must be at least 256 bits for HS256
+    private static final String SECRET =
+        "sdjhgbwubwwbgwiub8QFQ8qg87G1bfewifbiuwg7iu8wefqhjk";
 
-    public String generateToken(Authentication authentication) {
+    private final SecretKey key =
+        Keys.hmacShaKeyFor(SECRET.getBytes());
 
-        String username = authentication.getName();
-
+    public String generateToken(String email, String role) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(email)
+                .claim("role", role)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .setExpiration(
+                    new Date(System.currentTimeMillis() + 10 * 60 * 1000)
+                )
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    public String extractEmail(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 }
