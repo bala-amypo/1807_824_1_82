@@ -51,4 +51,9 @@ public class ProductivityMetricImplementation implements ProductivityMetricServi
     public List<ProductivityMetricRecord> getAllMetrics() {
         return repository.findAll();
     }
+    @Override
+public List<ProductivityMetricRecord> getMetricsByEmployee(Long employeeId) {
+    return repo.findByEmployeeId(employeeId);
+}
+
 }

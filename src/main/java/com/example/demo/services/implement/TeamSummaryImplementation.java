@@ -48,4 +48,11 @@ public class TeamSummaryImplementation implements TeamSummaryService {
     public List<TeamSummaryRecord> getAllSummaries() {
         return obj.findAll();
     }
+    @Override
+public TeamSummaryRecord getSummaryById(Long id) {
+    return repo.findById(id)
+            .orElseThrow(() ->
+                    new RuntimeException("TeamSummary not found"));
+}
+
 }
