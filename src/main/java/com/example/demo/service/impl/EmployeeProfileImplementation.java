@@ -33,6 +33,11 @@ public class EmployeeProfileImplementation implements EmployeeProfileService {
     public EmployeeProfile findByEmployeeId(String employeeId) {
         return obj.findByEmployeeId(employeeId);
     }
+    @Override
+public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
+    return employeeRepo.findByEmployeeId(employeeId);
+}
+
 
     @Override
     public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {

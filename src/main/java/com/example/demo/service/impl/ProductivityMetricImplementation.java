@@ -51,6 +51,11 @@ public class ProductivityMetricImplementation
     public List<ProductivityMetricRecord> getMetricsByEmployee(Long employeeId) {
         return repo.findByEmployeeId(employeeId);
     }
+    @Override
+public Optional<ProductivityMetricRecord> getMetricById(Long id) {
+    return metricRepo.findById(id);
+}
+
 
     @Override
     public List<ProductivityMetricRecord> getAllMetrics() {
