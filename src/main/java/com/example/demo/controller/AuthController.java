@@ -1,12 +1,16 @@
-package com.example.OneToMany.controller;
+package com.example.demo.controller;
+
+import com.example.demo.security.JwtUtil;
+import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.LoginResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.OneToMany.security.JwtTokenProvider;
 
 @RestController
 @RequestMapping("/auth")
@@ -16,20 +20,35 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtTokenProvider tokenProvider;
+    private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<LoginResponse> login(
+            @RequestBody LoginRequest request) {
 
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                request.getEmail(),
+                                request.getPassword()
+                        )
+                );
 
-        String token = tokenProvider.generateToken(request.getEmail());
+        UserDetails userDetails =
+                (UserDetails) authentication.getPrincipal();
 
-        return ResponseEntity.ok(token);
+        String role =
+                userDetails.getAuthorities()
+                        .iterator()
+                        .next()
+                        .getAuthority();
+
+        String token =
+                jwtUtil.generateToken(
+                        userDetails.getUsername(),
+                        role
+                );
+
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 }
