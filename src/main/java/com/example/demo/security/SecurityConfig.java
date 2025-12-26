@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private JwtFilter jwtFilter;
+    private JwtAuthenticationFilter jwtFilter;
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
@@ -30,11 +30,7 @@ public class SecurityConfig {
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/auth/**",
-                    "/login",
-                    "/register"
-                ).permitAll()
+                .requestMatchers("/auth/login").permitAll()
                 .anyRequest().authenticated()
             )
             .userDetailsService(userDetailsService)

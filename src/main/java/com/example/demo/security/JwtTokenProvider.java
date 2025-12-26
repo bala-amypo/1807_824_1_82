@@ -1,41 +1,54 @@
 package com.example.OneToMany.security;
 
 import java.util.Date;
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.stereotype.Component;
 
-@Component
-public class JwtUtil {
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
-    // Must be at least 256 bits for HS256
+@Component
+public class JwtTokenProvider {
+
     private static final String SECRET =
-        "sdjhgbwubwwbgwiub8QFQ8qg87G1bfewifbiuwg7iu8wefqhjk";
+        "this_is_a_very_long_secret_key_for_jwt_256_bits_minimum";
 
     private final SecretKey key =
         Keys.hmacShaKeyFor(SECRET.getBytes());
 
-    public String generateToken(String email, String role) {
+    public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
-                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(
-                    new Date(System.currentTimeMillis() + 10 * 60 * 1000)
+                    new Date(System.currentTimeMillis() + 1000 * 60 * 60)
                 )
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String extractEmail(String token) {
+    public String getEmailFromToken(String token) {
+        return getClaims(token).getSubject();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            getClaims(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
     }
 }

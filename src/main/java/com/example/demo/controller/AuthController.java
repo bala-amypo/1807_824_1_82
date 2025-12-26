@@ -1,12 +1,12 @@
-package com.example.demo.controller;
+package com.example.OneToMany.controller;
 
-import com.example.demo.model.UserAccount;
-import com.example.demo.security.JwtTokenProvider;
-import com.example.demo.service.UserAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.OneToMany.security.JwtTokenProvider;
 
 @RestController
 @RequestMapping("/auth")
@@ -16,27 +16,19 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtTokenProvider tokenProvider;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
 
-        Authentication authentication =
-            authenticationManager.authenticate(
+        authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                    request.getEmail(),
-                    request.getPassword()
+                        request.getEmail(),
+                        request.getPassword()
                 )
-            );
+        );
 
-        UserDetails user =
-            (UserDetails) authentication.getPrincipal();
-
-        String role =
-            user.getAuthorities().iterator().next().getAuthority();
-
-        String token =
-            jwtUtil.generateToken(user.getUsername(), role);
+        String token = tokenProvider.generateToken(request.getEmail());
 
         return ResponseEntity.ok(token);
     }
