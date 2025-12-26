@@ -1,35 +1,49 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.UserAccount;
 import com.example.demo.security.JwtTokenProvider;
+import com.example.demo.service.UserAccountService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationManager authManager;
-    private final JwtTokenProvider tokenProvider;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserAccountService userService;
 
     public AuthController(
-            AuthenticationManager authManager,
-            JwtTokenProvider tokenProvider) {
-        this.authManager = authManager;
-        this.tokenProvider = tokenProvider;
+            AuthenticationManager authenticationManager,
+            JwtTokenProvider jwtTokenProvider,
+            UserAccountService userService
+    ) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userService = userService;
     }
 
+    // REGISTER
+    @PostMapping("/register")
+    public UserAccount register(@RequestBody UserAccount user) {
+        return userService.register(user);
+    }
+
+    // LOGIN
     @PostMapping("/login")
-    public Map<String, String> login(
-            @RequestParam String username,
-            @RequestParam String password) {
+    public String login(@RequestBody UserAccount user) {
 
-        authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password));
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                user.getUsername(),
+                                user.getPassword()
+                        )
+                );
 
-        String token = tokenProvider.generateToken(username);
-
-        return Map.of("token", token);
+        return jwtTokenProvider.generateToken(authentication);
     }
 }

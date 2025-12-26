@@ -1,7 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.RegisterRequest;
+import com.example.demo.model.UserAccount;
 
 public interface UserAccountService {
-    void registerUser(RegisterRequest request);
+
+    UserAccount register(UserAccount user);
+
+    UserAccount getByUsername(String username);
 }
