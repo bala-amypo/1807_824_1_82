@@ -18,7 +18,7 @@ public class AnomalyRuleImplementation implements AnomalyRuleService {
 
     @Override
     public AnomalyRule createRule(AnomalyRule rule) {
-        rule.setId(null);
+        
         return repo.save(rule);
     }
 
