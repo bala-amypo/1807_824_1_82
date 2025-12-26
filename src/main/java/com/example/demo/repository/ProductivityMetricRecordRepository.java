@@ -1,11 +1,8 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.ProductivityMetricRecord;
-import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
+import com.example.demo.model.ProductivityMetricRecord;
 
-public interface ProductivityMetricRecordRepository
-        extends JpaRepository<ProductivityMetricRecord, Long> {
-
+public interface ProductivityMetricRecordRepository {
     List<ProductivityMetricRecord> findByEmployeeId(Long employeeId);
 }
