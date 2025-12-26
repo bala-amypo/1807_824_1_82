@@ -1,30 +1,38 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.model.UserAccount;
 import com.example.demo.repository.UserAccountRepository;
+import com.example.demo.service.UserAccountService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 @Service
-public class UserAccountImplementation implements UserAccountService {
+public class UserAccountServiceImpl implements UserAccountService {
 
-    @Autowired
-    UserAccountRepository obj;
+    private final UserAccountRepository repo;
+    private final PasswordEncoder encoder;
 
-    @Override
-    public UserAccount registerUser(UserAccount user) {
-    
-        return obj.save(user);
+    public UserAccountServiceImpl(UserAccountRepository repo,
+                                  PasswordEncoder encoder) {
+        this.repo = repo;
+        this.encoder = encoder;
     }
 
     @Override
-    public UserAccount findByEmail(String email) {
-        return obj.findByEmail(email);
-    }
+    public void registerUser(RegisterRequest request) {
 
-    @Override
-    public UserAccount findById(Long id) {
-        return obj.findById(id).orElse(null);
+        if (repo.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("User already exists");
+        }
+
+        UserAccount user = new UserAccount();
+        user.setEmail(request.getEmail());
+        user.setPasswordHash(encoder.encode(request.getPassword()));
+        user.setRoles(Set.of("USER"));
+
+        repo.save(user);
     }
 }
