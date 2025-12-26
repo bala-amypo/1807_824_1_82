@@ -1,59 +1,58 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.model.ProductivityMetricRecord;
 import com.example.demo.repository.ProductivityMetricRepository;
 import com.example.demo.service.ProductivityMetricService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
-public class ProductivityMetricImplementation implements ProductivityMetricService {
+public class ProductivityMetricImplementation
+        implements ProductivityMetricService {
 
-    private final ProductivityMetricRepository repository;
+    private final ProductivityMetricRepository repo;
 
-    public ProductivityMetricImplementation(ProductivityMetricRepository repository) {
-        this.repository = repository;
+    public ProductivityMetricImplementation(ProductivityMetricRepository repo) {
+        this.repo = repo;
     }
 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
-        return repository.save(metric);
+        metric.setId(null);
+        return repo.save(metric);
     }
 
     @Override
-    public ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord updated) {
+    public ProductivityMetricRecord updateMetric(
+            Long id,
+            ProductivityMetricRecord metric) {
 
-        ProductivityMetricRecord existing = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Metric not found"));
+        ProductivityMetricRecord existing = getMetricById(id);
 
-        existing.setHoursLogged(updated.getHoursLogged());
-        existing.setTasksCompleted(updated.getTasksCompleted());
-        existing.setMeetingsAttended(updated.getMeetingsAttended());
-        existing.setProductivityScore(updated.getProductivityScore());
+        existing.setDate(metric.getDate());
+        existing.setHoursLogged(metric.getHoursLogged());
+        existing.setTasksCompleted(metric.getTasksCompleted());
+        existing.setMeetingsAttended(metric.getMeetingsAttended());
+        existing.setProductivityScore(metric.getProductivityScore());
 
-        return repository.save(existing);
-    }
-
-    @Override
-    public List<ProductivityMetricRecord> getMetricsByEmployeeId(Long employeeId) {
-        return repository.findByEmployeeId(employeeId);
+        return repo.save(existing);
     }
 
     @Override
     public ProductivityMetricRecord getMetricById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Metric not found"));
+        return repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Metric not found"));
+    }
+
+    @Override
+    public List<ProductivityMetricRecord> getMetricsByEmployee(Long employeeId) {
+        return repo.findByEmployeeId(employeeId);
     }
 
     @Override
     public List<ProductivityMetricRecord> getAllMetrics() {
-        return repository.findAll();
+        return repo.findAll();
     }
-    @Override
-public List<ProductivityMetricRecord> getMetricsByEmployee(Long employeeId) {
-    return repo.findByEmployeeId(employeeId);
-}
-
 }

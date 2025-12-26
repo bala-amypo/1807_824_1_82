@@ -1,60 +1,54 @@
-package com.example.demo.service;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.example.demo.service.impl;
 
 import com.example.demo.model.AnomalyRule;
 import com.example.demo.repository.AnomalyRuleRepository;
+import com.example.demo.service.AnomalyRuleService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AnomalyRuleImplementation implements AnomalyRuleService {
 
-    @Autowired
-    AnomalyRuleRepository obj;
+    private final AnomalyRuleRepository repo;
 
-    @Override
-    public AnomalyRule createRule(AnomalyRule rule) {
-        return obj.save(rule);
+    public AnomalyRuleImplementation(AnomalyRuleRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public AnomalyRule updateRule(Long id, AnomalyRule updatedRule) {
+    public AnomalyRule createRule(AnomalyRule rule) {
+        rule.setId(null);
+        return repo.save(rule);
+    }
 
-        AnomalyRule rule = obj.findById(id).orElse(null);
+    @Override
+    public AnomalyRule updateRule(Long id, AnomalyRule rule) {
+        AnomalyRule existing = getRuleById(id);
 
-        if (rule != null) {
-            rule.setDescription(updatedRule.getDescription());
-            rule.setThresholdType(updatedRule.getThresholdType());
-            rule.setThresholdValue(updatedRule.getThresholdValue());
-            rule.setActive(updatedRule.getActive());
+        existing.setRuleCode(rule.getRuleCode());
+        existing.setDescription(rule.getDescription());
+        existing.setThresholdType(rule.getThresholdType());
+        existing.setThresholdValue(rule.getThresholdValue());
+        existing.setActive(rule.getActive());
 
-            return obj.save(rule);
-        }
+        return repo.save(existing);
+    }
 
-        return null;
+    @Override
+    public AnomalyRule getRuleById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("AnomalyRule not found"));
     }
 
     @Override
     public List<AnomalyRule> getActiveRules() {
-        return obj.findByActive(true);
-    }
-
-    @Override
-    public AnomalyRule getRuleByCode(String ruleCode) {
-        return obj.findByRuleCode(ruleCode);
+        return repo.findByActiveTrue();
     }
 
     @Override
     public List<AnomalyRule> getAllRules() {
-        return obj.findAll();
+        return repo.findAll();
     }
-    @Override
-public AnomalyRule getRuleById(Long id) {
-    return repo.findById(id)
-            .orElseThrow(() ->
-                    new RuntimeException("AnomalyRule not found"));
-}
-
 }
