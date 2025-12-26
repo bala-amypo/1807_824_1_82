@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 public class TeamSummaryImplementation implements TeamSummaryService {
 
-    private final TeamSummaryRepository repo;
+    private final TeamSummaryRecordRepository repo;
 
-    public TeamSummaryImplementation(TeamSummaryRepository repo) {
+    public TeamSummaryImplementation(TeamSummaryRecordRepository repo) {
         this.repo = repo;
     }
 

@@ -10,9 +10,9 @@ import com.example.demo.repository.AnomalyFlagRecordRepository;
 @Service
 public class AnomalyFlagImplementation implements AnomalyFlagService {
 
-    private final AnomalyFlagRepository repository;
+    private final AnomalyFlagRecordRepository repository;
 
-    public AnomalyFlagImplementation(AnomalyFlagRepository repository) {
+    public AnomalyFlagImplementation(AnomalyFlagRecordRepository repository) {
         this.repository = repository;
     }
 

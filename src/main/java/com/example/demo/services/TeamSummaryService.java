@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TeamSummaryService {
 
-    TeamSummaryRecord generateSummary(String teamName, LocalDate date);
+    TeamSummaryRecord generateSummary(String teamName, LocalDate summaryDate);
 
     TeamSummaryRecord getSummaryById(Long id);
 

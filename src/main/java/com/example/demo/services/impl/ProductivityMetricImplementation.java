@@ -13,7 +13,7 @@ public class ProductivityMetricImplementation
 
     private final ProductivityMetricRepository repo;
 
-    public ProductivityMetricImplementation(ProductivityMetricRepository repo) {
+    public ProductivityMetricImplementation(ProductivityMetricRecordRepository repo) {
         this.repo = repo;
     }
 
