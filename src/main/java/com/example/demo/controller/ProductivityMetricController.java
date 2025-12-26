@@ -2,8 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ProductivityMetricRecord;
 import com.example.demo.service.ProductivityMetricService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
+@RestController
 public class ProductivityMetricController {
 
     private final ProductivityMetricService service;
@@ -12,7 +17,9 @@ public class ProductivityMetricController {
         this.service = service;
     }
 
-    public List<ProductivityMetricRecord> getMetricsByEmployee(Long id) {
-        return service.getMetricsByEmployee(id);
+    @GetMapping("/metrics/{employeeId}")
+    public List<ProductivityMetricRecord> getMetrics(
+            @PathVariable Long employeeId) {
+        return service.getMetricsByEmployee(employeeId);
     }
 }
