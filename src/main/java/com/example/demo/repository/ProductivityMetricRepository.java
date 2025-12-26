@@ -13,4 +13,5 @@ public interface ProductivityMetricRepository
     ProductivityMetricRecord findByEmployeeIdAndDate(Long employeeId, LocalDate date);
 
     List<ProductivityMetricRecord> findByEmployeeId(Long employeeId);
+    
 }

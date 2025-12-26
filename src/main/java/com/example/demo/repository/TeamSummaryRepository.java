@@ -14,4 +14,5 @@ public interface TeamSummaryRepository extends JpaRepository<TeamSummaryRecord, 
     );
 
     List<TeamSummaryRecord> findByTeamName(String teamName);
+    
 }

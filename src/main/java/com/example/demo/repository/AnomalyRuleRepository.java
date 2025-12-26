@@ -10,4 +10,5 @@ public interface AnomalyRuleRepository extends JpaRepository<AnomalyRule, Long> 
     AnomalyRule findByRuleCode(String ruleCode);
 
     List<AnomalyRule> findByActive(Boolean active);
+    List<AnomalyRule> findByActiveTrue();
 }

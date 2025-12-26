@@ -19,9 +19,10 @@ public class ProductivityMetricImplementation
 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
-        metric.setId(null);
+        
         return repo.save(metric);
     }
+    
 
     @Override
     public ProductivityMetricRecord updateMetric(
