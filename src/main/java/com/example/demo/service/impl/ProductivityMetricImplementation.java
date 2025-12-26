@@ -11,7 +11,7 @@ import java.util.List;
 public class ProductivityMetricImplementation
         implements ProductivityMetricService {
 
-    private final ProductivityMetricRepository repo;
+    private final ProductivityMetricRecordRepository repo;
 
     public ProductivityMetricImplementation(ProductivityMetricRecordRepository repo) {
         this.repo = repo;
