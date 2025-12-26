@@ -7,8 +7,12 @@ import java.util.Optional;
 public interface EmployeeProfileService {
 
     EmployeeProfile createEmployee(EmployeeProfile e);
+
     EmployeeProfile getEmployeeById(Long id);
+
     Optional<EmployeeProfile> findByEmployeeId(String empId);
-    EmployeeProfile updateEmployeeStatus(Long id, Boolean active);
+
+    EmployeeProfile updateEmployeeStatus(Long id, boolean active);
+
     List<EmployeeProfile> getAllEmployees();
 }

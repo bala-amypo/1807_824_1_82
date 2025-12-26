@@ -1,35 +1,31 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.ProductivityMetricRecord;
-import com.example.demo.repository.ProductivityMetricRecordRepository;
 import com.example.demo.service.ProductivityMetricService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
-@Service
 public class ProductivityMetricImplementation implements ProductivityMetricService {
 
-    private final ProductivityMetricRecordRepository metricRepo;
-
-    public ProductivityMetricImplementation(ProductivityMetricRecordRepository metricRepo) {
-        this.metricRepo = metricRepo;
-    }
-
     @Override
-    public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
-        return metricRepo.save(metric);
+    public ProductivityMetricRecord recordMetric(ProductivityMetricRecord m) {
+        return m;
     }
 
     @Override
     public Optional<ProductivityMetricRecord> getMetricById(Long id) {
-        return metricRepo.findById(id);
+        return Optional.empty();
     }
 
     @Override
     public List<ProductivityMetricRecord> getAllMetrics() {
-        return metricRepo.findAll();
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<ProductivityMetricRecord> getMetricsByEmployee(Long empId) {
+        return new ArrayList<>();
     }
 }

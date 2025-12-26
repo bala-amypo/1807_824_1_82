@@ -3,22 +3,24 @@ package com.example.demo.service.impl;
 import com.example.demo.model.EmployeeProfile;
 import com.example.demo.service.EmployeeProfileService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class EmployeeProfileImplementation implements EmployeeProfileService {
 
     @Override
-    public EmployeeProfile createEmployee(EmployeeProfile employee) {
-        return employee;
+    public EmployeeProfile createEmployee(EmployeeProfile e) {
+        return e;
     }
 
     @Override
-    public Optional<EmployeeProfile> getEmployeeById(Long id) {
-        return Optional.of(new EmployeeProfile());
+    public EmployeeProfile getEmployeeById(Long id) {
+        return new EmployeeProfile();
     }
 
     @Override
-    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
+    public Optional<EmployeeProfile> findByEmployeeId(String empId) {
         return Optional.empty();
     }
 
@@ -27,5 +29,10 @@ public class EmployeeProfileImplementation implements EmployeeProfileService {
         EmployeeProfile e = new EmployeeProfile();
         e.setActive(active);
         return e;
+    }
+
+    @Override
+    public List<EmployeeProfile> getAllEmployees() {
+        return new ArrayList<>();
     }
 }
