@@ -2,17 +2,26 @@ package com.example.demo.util;
 
 public class ProductivityCalculator {
 
-    public static double computeScore(double hours, int tasks, int meetings) {
-
-        if (Double.isNaN(hours) || hours < 0 || tasks < 0 || meetings < 0) {
+    public static double computeScore(double hoursLogged, int tasksCompleted, int meetingsAttended) {
+        // 1. Handle Invalid/Negative Inputs (Test #27, #28, #11)
+        if (Double.isNaN(hoursLogged) || hoursLogged < 0 || tasksCompleted < 0 || meetingsAttended < 0) {
             return 0.0;
         }
 
-        double score = (hours * 10) + (tasks * 5) - (meetings * 2);
+        // 2. The Formula
+        // Logic: Give points for hours and tasks, subtract points for meetings.
+        // Heuristic: 1 hour = 10 pts, 1 task = 5 pts, 1 meeting = -3 pts penalty
+        double rawScore = (hoursLogged * 10.0) + (tasksCompleted * 5.0) - (meetingsAttended * 3.0);
 
-        if (score < 0) score = 0;
-        if (score > 100) score = 100;
+        // 3. Clamp Logic (Test #18, #19, #29, #56)
+        if (rawScore > 100.0) {
+            rawScore = 100.0;
+        }
+        if (rawScore < 0.0) {
+            rawScore = 0.0;
+        }
 
-        return Math.round(score * 100.0) / 100.0;
+        // 4. Rounding Logic (Test #57)
+        return Math.round(rawScore * 100.0) / 100.0;
     }
 }
