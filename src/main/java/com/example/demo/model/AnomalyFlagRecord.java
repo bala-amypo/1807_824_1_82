@@ -15,6 +15,7 @@ public class AnomalyFlagRecord {
     private String ruleCode;
     private String severity;
     private String details;
+    private boolean resolved;
 
     public AnomalyFlagRecord() {}
 
@@ -44,5 +45,14 @@ public class AnomalyFlagRecord {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    // 🔥 REQUIRED BY SERVICE
+    public boolean isResolved() {
+        return resolved;
+    }
+
+    public void setResolved(boolean resolved) {
+        this.resolved = resolved;
     }
 }
