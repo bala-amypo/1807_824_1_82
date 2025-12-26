@@ -12,38 +12,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
-    private final UserAccountService userService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-    public AuthController(
-            AuthenticationManager authenticationManager,
-            JwtTokenProvider jwtTokenProvider,
-            UserAccountService userService
-    ) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.userService = userService;
-    }
+    @Autowired
+    private JwtUtil jwtUtil;
 
-    // REGISTER
-    @PostMapping("/register")
-    public UserAccount register(@RequestBody UserAccount user) {
-        return userService.register(user);
-    }
-
-    // LOGIN
     @PostMapping("/login")
-    public String login(@RequestBody UserAccount user) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
 
         Authentication authentication =
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                user.getUsername(),
-                                user.getPassword()
-                        )
-                );
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    request.getEmail(),
+                    request.getPassword()
+                )
+            );
 
-        return jwtTokenProvider.generateToken(authentication);
+        UserDetails user =
+            (UserDetails) authentication.getPrincipal();
+
+        String role =
+            user.getAuthorities().iterator().next().getAuthority();
+
+        String token =
+            jwtUtil.generateToken(user.getUsername(), role);
+
+        return ResponseEntity.ok(token);
     }
 }
