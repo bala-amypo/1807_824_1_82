@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-import java.util.Optional;
-
 public class EmployeeProfile {
 
     private Long id;
@@ -28,9 +26,4 @@ public class EmployeeProfile {
 
     public String getTeamName() { return teamName; }
     public void setTeamName(String teamName) { this.teamName = teamName; }
-
-    // 🔴 REQUIRED BY TEST (Mockito Optional logic)
-    public boolean isPresent() {
-        return true;
-    }
 }
