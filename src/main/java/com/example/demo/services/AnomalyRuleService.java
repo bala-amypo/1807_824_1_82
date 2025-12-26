@@ -1,17 +1,17 @@
 package com.example.demo.service;
 
-import java.util.List;
 import com.example.demo.model.AnomalyRule;
+import java.util.List;
 
 public interface AnomalyRuleService {
 
     AnomalyRule createRule(AnomalyRule rule);
 
-    AnomalyRule updateRule(Long id, AnomalyRule updatedRule);
+    AnomalyRule updateRule(Long id, AnomalyRule rule);
+
+    AnomalyRule getRuleById(Long id);
 
     List<AnomalyRule> getActiveRules();
-
-    AnomalyRule getRuleByCode(String ruleCode);
 
     List<AnomalyRule> getAllRules();
 }
