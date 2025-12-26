@@ -26,8 +26,8 @@ public class TeamSummaryRecord {
 
     public Integer getAnomalyCount() { return anomalyCount; }
     public void setAnomalyCount(Integer anomalyCount) { this.anomalyCount = anomalyCount; }
-}
-public class TeamSummaryRecord {
+
+
     private double avgTasksCompleted;
 
     public void setAvgTasksCompleted(double avgTasksCompleted) {
