@@ -7,10 +7,12 @@ public class ProductivityMetricRecord {
     private Long id;
     private Long employeeId;
     private LocalDate date;
-    private Double hoursLogged;
-    private Integer tasksCompleted;
-    private Integer meetingsAttended;
-    private Double productivityScore;
+
+    private double hoursLogged;        // primitive
+    private int tasksCompleted;        // primitive
+    private int meetingsAttended;      // primitive
+    private double productivityScore;  // primitive
+
     private String rawDataJson;
 
     public Long getId() { return id; }
@@ -22,17 +24,17 @@ public class ProductivityMetricRecord {
     public LocalDate getDate() { return date; }
     public void setDate(LocalDate date) { this.date = date; }
 
-    public Double getHoursLogged() { return hoursLogged; }
-    public void setHoursLogged(Double hoursLogged) { this.hoursLogged = hoursLogged; }
+    public double getHoursLogged() { return hoursLogged; }
+    public void setHoursLogged(double hoursLogged) { this.hoursLogged = hoursLogged; }
 
-    public Integer getTasksCompleted() { return tasksCompleted; }
-    public void setTasksCompleted(Integer tasksCompleted) { this.tasksCompleted = tasksCompleted; }
+    public int getTasksCompleted() { return tasksCompleted; }
+    public void setTasksCompleted(int tasksCompleted) { this.tasksCompleted = tasksCompleted; }
 
-    public Integer getMeetingsAttended() { return meetingsAttended; }
-    public void setMeetingsAttended(Integer meetingsAttended) { this.meetingsAttended = meetingsAttended; }
+    public int getMeetingsAttended() { return meetingsAttended; }
+    public void setMeetingsAttended(int meetingsAttended) { this.meetingsAttended = meetingsAttended; }
 
-    public Double getProductivityScore() { return productivityScore; }
-    public void setProductivityScore(Double productivityScore) { this.productivityScore = productivityScore; }
+    public double getProductivityScore() { return productivityScore; }
+    public void setProductivityScore(double productivityScore) { this.productivityScore = productivityScore; }
 
     public String getRawDataJson() { return rawDataJson; }
     public void setRawDataJson(String rawDataJson) { this.rawDataJson = rawDataJson; }

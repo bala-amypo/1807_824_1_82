@@ -6,7 +6,7 @@ public class EmployeeProfile {
     private String employeeId;
     private String fullName;
     private String email;
-    private Boolean active = true;
+    private boolean active = true;
     private String teamName;
 
     public Long getId() { return id; }
@@ -21,8 +21,8 @@ public class EmployeeProfile {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public boolean getActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
     public String getTeamName() { return teamName; }
     public void setTeamName(String teamName) { this.teamName = teamName; }
