@@ -31,6 +31,22 @@
 </dependency>
 
 <!-- JWT -->
+<!-- JUnit 4 (required for AmyPo tests) -->
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.2</version>
+    <scope>test</scope>
+</dependency>
+<!-- TestNG (used by platform test listener) -->
+<dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>7.8.0</version>
+    <scope>test</scope>
+</dependency>
+
+
 <dependency>
     <groupId>io.jsonwebtoken</groupId>
     <artifactId>jjwt-api</artifactId>
