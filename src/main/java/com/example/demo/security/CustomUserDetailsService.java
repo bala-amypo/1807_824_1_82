@@ -2,38 +2,35 @@ package com.example.demo.security;
 
 import com.example.demo.model.UserAccount;
 import com.example.demo.repository.UserAccountRepository;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import java.util.stream.Collectors;
+
+import java.util.Collections;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserAccountRepository repo;
+    private final UserAccountRepository userRepo;
 
-    public CustomUserDetailsService(UserAccountRepository repo) {
-        this.repo = repo;
+    public CustomUserDetailsService(UserAccountRepository userRepo) {
+        this.userRepo = userRepo;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email)
+    public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
-        UserAccount user = repo.findByEmail(email)
+        UserAccount user = userRepo.findByUsername(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found"));
 
         return new User(
-                user.getEmail(),
-                user.getPasswordHash(),
-                user.getRoles()
-                        .stream()
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList())
+                user.getUsername(),
+                user.getPassword(),
+                Collections.emptyList() // no roles for now
         );
     }
 }
