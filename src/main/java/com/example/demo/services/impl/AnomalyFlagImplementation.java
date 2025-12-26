@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.AnomalyFlagRecord;
-import com.example.demo.repository.AnomalyFlagRepository;
+import com.example.demo.repository.AnomalyFlagRecordRepository;
 
 @Service
 public class AnomalyFlagImplementation implements AnomalyFlagService {
