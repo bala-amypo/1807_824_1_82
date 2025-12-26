@@ -1,11 +1,7 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
 public class TeamSummaryRecord {
@@ -15,80 +11,25 @@ public class TeamSummaryRecord {
     private Long id;
 
     private String teamName;
+    private double avgHoursLogged;
+    private double avgScore;
+    private int anomalyCount;
     private LocalDate summaryDate;
-    private Double avgHoursLogged;
-    private Double avgTasksCompleted;
-    private Double avgScore;
-    private Integer anomalyCount;
 
-    public TeamSummaryRecord() {
-    }
+    public TeamSummaryRecord() {}
 
-    public TeamSummaryRecord(Long id, String teamName, LocalDate summaryDate,
-                             Double avgHoursLogged, Double avgTasksCompleted,
-                             Double avgScore, Integer anomalyCount) {
-        this.id = id;
-        this.teamName = teamName;
-        this.summaryDate = summaryDate;
-        this.avgHoursLogged = avgHoursLogged;
-        this.avgTasksCompleted = avgTasksCompleted;
-        this.avgScore = avgScore;
-        this.anomalyCount = anomalyCount;
-    }
+    public String getTeamName() { return teamName; }
+    public void setTeamName(String teamName) { this.teamName = teamName; }
 
-    public Long getId() {
-        return id;
-    }
+    public double getAvgHoursLogged() { return avgHoursLogged; }
+    public void setAvgHoursLogged(double avgHoursLogged) { this.avgHoursLogged = avgHoursLogged; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public double getAvgScore() { return avgScore; }
+    public void setAvgScore(double avgScore) { this.avgScore = avgScore; }
 
-    public String getTeamName() {
-        return teamName;
-    }
+    public Integer getAnomalyCount() { return anomalyCount; }
+    public void setAnomalyCount(int anomalyCount) { this.anomalyCount = anomalyCount; }
 
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public LocalDate getSummaryDate() {
-        return summaryDate;
-    }
-
-    public void setSummaryDate(LocalDate summaryDate) {
-        this.summaryDate = summaryDate;
-    }
-
-    public Double getAvgHoursLogged() {
-        return avgHoursLogged;
-    }
-
-    public void setAvgHoursLogged(Double avgHoursLogged) {
-        this.avgHoursLogged = avgHoursLogged;
-    }
-
-    public Double getAvgTasksCompleted() {
-        return avgTasksCompleted;
-    }
-
-    public void setAvgTasksCompleted(Double avgTasksCompleted) {
-        this.avgTasksCompleted = avgTasksCompleted;
-    }
-
-    public Double getAvgScore() {
-        return avgScore;
-    }
-
-    public void setAvgScore(Double avgScore) {
-        this.avgScore = avgScore;
-    }
-
-    public Integer getAnomalyCount() {
-        return anomalyCount;
-    }
-
-    public void setAnomalyCount(Integer anomalyCount) {
-        this.anomalyCount = anomalyCount;
-    }
+    public LocalDate getSummaryDate() { return summaryDate; }
+    public void setSummaryDate(LocalDate summaryDate) { this.summaryDate = summaryDate; }
 }

@@ -1,9 +1,6 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class AnomalyFlagRecord {
@@ -19,40 +16,16 @@ public class AnomalyFlagRecord {
 
     public AnomalyFlagRecord() {}
 
-    public Long getId() {
-        return id;
-    }
+    public String getRuleCode() { return ruleCode; }
+    public void setRuleCode(String ruleCode) { this.ruleCode = ruleCode; }
 
-    public String getRuleCode() {
-        return ruleCode;
-    }
+    public String getSeverity() { return severity; }
+    public void setSeverity(String severity) { this.severity = severity; }
 
-    public void setRuleCode(String ruleCode) {
-        this.ruleCode = ruleCode;
-    }
+    public String getDetails() { return details; }
+    public void setDetails(String details) { this.details = details; }
 
-    public String getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(String severity) {
-        this.severity = severity;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    // 🔥 REQUIRED BY SERVICE
-    public boolean isResolved() {
-        return resolved;
-    }
-
-    public void setResolved(boolean resolved) {
-        this.resolved = resolved;
-    }
+    public boolean getResolved() { return resolved; }
+    public boolean isResolved() { return resolved; }
+    public void setResolved(boolean resolved) { this.resolved = resolved; }
 }

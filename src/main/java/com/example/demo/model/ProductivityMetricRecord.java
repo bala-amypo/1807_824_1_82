@@ -1,10 +1,6 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -14,76 +10,40 @@ public class ProductivityMetricRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long employeeId;
     private LocalDate date;
-    private int hoursLogged;
+    private double hoursLogged;
     private int tasksCompleted;
     private int meetingsAttended;
     private double productivityScore;
-
     private String rawDataJson;
 
     public ProductivityMetricRecord() {}
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    // 🔥 REQUIRED BY SERVICE
-    public LocalDate getDate() {
-        return date;
-    }
+    public Long getEmployeeId() { return employeeId; }
+    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
 
-    public int getHoursLogged() {
-        return hoursLogged;
-    }
+    public Double getHoursLogged() { return hoursLogged; }
+    public void setHoursLogged(double hoursLogged) { this.hoursLogged = hoursLogged; }
 
-    public void setHoursLogged(int hoursLogged) {
-        this.hoursLogged = hoursLogged;
-    }
+    public Integer getTasksCompleted() { return tasksCompleted; }
+    public void setTasksCompleted(int tasksCompleted) { this.tasksCompleted = tasksCompleted; }
 
-    public int getTasksCompleted() {
-        return tasksCompleted;
-    }
+    public Integer getMeetingsAttended() { return meetingsAttended; }
+    public void setMeetingsAttended(int meetingsAttended) { this.meetingsAttended = meetingsAttended; }
 
-    public void setTasksCompleted(int tasksCompleted) {
-        this.tasksCompleted = tasksCompleted;
-    }
+    public double getProductivityScore() { return productivityScore; }
+    public void setProductivityScore(double productivityScore) { this.productivityScore = productivityScore; }
 
-    public int getMeetingsAttended() {
-        return meetingsAttended;
-    }
+    public String getRawDataJson() { return rawDataJson; }
+    public void setRawDataJson(String rawDataJson) { this.rawDataJson = rawDataJson; }
 
-    public void setMeetingsAttended(int meetingsAttended) {
-        this.meetingsAttended = meetingsAttended;
-    }
-
-    public double getProductivityScore() {
-        return productivityScore;
-    }
-
-    public void setProductivityScore(double productivityScore) {
-        this.productivityScore = productivityScore;
-    }
-
-    // 🔥 REQUIRED BY TEST
-    public String getRawDataJson() {
-        return rawDataJson;
-    }
-
-    public void setRawDataJson(String rawDataJson) {
-        this.rawDataJson = rawDataJson;
-    }
-
-    // 🔥 REQUIRED BY TEST (fake Optional behavior)
-    public boolean isPresent() {
-        return true;
-    }
-
-    public boolean isEmpty() {
-        return false;
-    }
+    // Fake Optional behavior for tests
+    public boolean isPresent() { return true; }
+    public boolean isEmpty() { return false; }
 }
