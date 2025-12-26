@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class UserAccountImplementation implements UserAccountService {
+public class UserAccountImpl implements UserAccountService {
 
     private final UserAccountRepository repo;
     private final PasswordEncoder encoder;
