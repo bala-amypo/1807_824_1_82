@@ -6,8 +6,10 @@ public class AnomalyFlagRecord {
     private Long metricId;
     private String ruleCode;
     private String severity;
-    private Boolean resolved;
     private String details;
+    private Boolean resolved;
+
+    public AnomalyFlagRecord() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -21,9 +23,9 @@ public class AnomalyFlagRecord {
     public String getSeverity() { return severity; }
     public void setSeverity(String severity) { this.severity = severity; }
 
-    public Boolean getResolved() { return resolved; }
-    public void setResolved(Boolean resolved) { this.resolved = resolved; }
-
     public String getDetails() { return details; }
     public void setDetails(String details) { this.details = details; }
+
+    public Boolean getResolved() { return resolved; }
+    public void setResolved(Boolean resolved) { this.resolved = resolved; }
 }

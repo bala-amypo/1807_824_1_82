@@ -8,6 +8,8 @@ public class UserAccount {
     private String passwordHash;
     private Set<String> roles;
 
+    public UserAccount() {}
+
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 

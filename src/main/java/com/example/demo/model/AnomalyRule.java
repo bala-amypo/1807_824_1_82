@@ -9,6 +9,8 @@ public class AnomalyRule {
     private Double thresholdValue;
     private Boolean active;
 
+    public AnomalyRule() {}
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
