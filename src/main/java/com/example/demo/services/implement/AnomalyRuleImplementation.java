@@ -50,4 +50,11 @@ public class AnomalyRuleImplementation implements AnomalyRuleService {
     public List<AnomalyRule> getAllRules() {
         return obj.findAll();
     }
+    @Override
+public AnomalyRule getRuleById(Long id) {
+    return repo.findById(id)
+            .orElseThrow(() ->
+                    new RuntimeException("AnomalyRule not found"));
+}
+
 }

@@ -15,7 +15,7 @@ public class UserAccountImpl implements UserAccountService {
     private final UserAccountRepository repo;
     private final PasswordEncoder encoder;
 
-    public UserAccountServiceImpl(UserAccountRepository repo,
+    public UserAccountImpl(UserAccountRepository repo,
                                   PasswordEncoder encoder) {
         this.repo = repo;
         this.encoder = encoder;
