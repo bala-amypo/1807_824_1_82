@@ -1,10 +1,15 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
+
 public class TeamSummaryRecord {
 
     private String teamName;
+    private LocalDate summaryDate;
+    private double avgScore;
     private double avgTasksCompleted;
     private double avgHoursLogged;
+    private int anomalyCount;
 
     public String getTeamName() {
         return teamName;
@@ -12,6 +17,22 @@ public class TeamSummaryRecord {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public LocalDate getSummaryDate() {
+        return summaryDate;
+    }
+
+    public void setSummaryDate(LocalDate summaryDate) {
+        this.summaryDate = summaryDate;
+    }
+
+    public double getAvgScore() {
+        return avgScore;
+    }
+
+    public void setAvgScore(double avgScore) {
+        this.avgScore = avgScore;
     }
 
     public double getAvgTasksCompleted() {
@@ -28,5 +49,13 @@ public class TeamSummaryRecord {
 
     public void setAvgHoursLogged(double avgHoursLogged) {
         this.avgHoursLogged = avgHoursLogged;
+    }
+
+    public int getAnomalyCount() {
+        return anomalyCount;
+    }
+
+    public void setAnomalyCount(int anomalyCount) {
+        this.anomalyCount = anomalyCount;
     }
 }
