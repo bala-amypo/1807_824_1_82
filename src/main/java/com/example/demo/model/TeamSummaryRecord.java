@@ -7,12 +7,9 @@ public class TeamSummaryRecord {
     private String teamName;
     private Double avgHoursLogged;
     private Double avgScore;
+    private Double avgTasksCompleted;
     private Integer anomalyCount;
     private LocalDate summaryDate;
-    private Double avgTasksCompleted;
-
-
-
 
     public String getTeamName() { return teamName; }
     public void setTeamName(String teamName) { this.teamName = teamName; }
@@ -23,16 +20,12 @@ public class TeamSummaryRecord {
     public Double getAvgScore() { return avgScore; }
     public void setAvgScore(Double avgScore) { this.avgScore = avgScore; }
 
+    public Double getAvgTasksCompleted() { return avgTasksCompleted; }
+    public void setAvgTasksCompleted(Double avgTasksCompleted) { this.avgTasksCompleted = avgTasksCompleted; }
+
     public Integer getAnomalyCount() { return anomalyCount; }
     public void setAnomalyCount(Integer anomalyCount) { this.anomalyCount = anomalyCount; }
 
     public LocalDate getSummaryDate() { return summaryDate; }
     public void setSummaryDate(LocalDate summaryDate) { this.summaryDate = summaryDate; }
-    public Double getAvgTasksCompleted() {
-    return avgTasksCompleted;
-}
-
-public void setAvgTasksCompleted(Double avgTasksCompleted) {
-    this.avgTasksCompleted = avgTasksCompleted;
-}
 }

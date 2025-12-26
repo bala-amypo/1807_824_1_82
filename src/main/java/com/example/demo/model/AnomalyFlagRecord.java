@@ -3,6 +3,7 @@ package com.example.demo.model;
 public class AnomalyFlagRecord {
 
     private Long id;
+    private Long metricId;
     private String ruleCode;
     private String severity;
     private String details;
@@ -10,6 +11,9 @@ public class AnomalyFlagRecord {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
+    public Long getMetricId() { return metricId; }
+    public void setMetricId(Long metricId) { this.metricId = metricId; }
 
     public String getRuleCode() { return ruleCode; }
     public void setRuleCode(String ruleCode) { this.ruleCode = ruleCode; }
