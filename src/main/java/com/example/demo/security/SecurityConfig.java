@@ -75,18 +75,31 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         )
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(
-                "/api/auth/**",
+                // "/api/auth/**",
 
-                // ✅ ADD ALL YOUR API PATHS HERE
-                "/api/employees/**",
-                "/api/anomalies/**",
-                "/api/anomaly-rules/**",
-                "/api/team-file-summary/**",
-                "/api/productivity-metrics/**",
+                // // ✅ ADD ALL YOUR API PATHS HERE
+                // "/api/employees/**",
+                // "/api/anomalies/**",
+                // "/api/anomaly-rules/**",
+                // "/api/team-file-summary/**",
+                // "/api/productivity-metrics/**",
 
-                // swagger
-                "/swagger-ui/**",
-                "/v3/api-docs/**"
+                // // swagger
+                // "/swagger-ui/**",
+                // "/v3/api-docs/**"
+                  "/",                     // ✅ REQUIRED
+        "/index.html",
+        "/favicon.ico",
+
+        "/swagger-ui/**",         // ✅ Swagger UI
+        "/v3/api-docs/**",
+
+        "/api/auth/**",           // APIs
+        "/api/metrics/**",
+        "/api/employees/**",
+        "/api/anomalies/**",
+        "/api/anomaly-rules/**",
+        "/api/team-file-summary/**"
             ).permitAll()
             .anyRequest().authenticated()
         )
