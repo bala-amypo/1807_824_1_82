@@ -45,6 +45,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/metrics")
+@CrossOrigin(origins = "*")
+
 public class ProductivityMetricController {
 
     private final ProductivityMetricService metricService;

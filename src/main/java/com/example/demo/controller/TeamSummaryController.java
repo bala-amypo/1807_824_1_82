@@ -10,6 +10,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/team-summary")
+@CrossOrigin(origins = "*")
+
 public class TeamSummaryController {
 
     private final TeamSummaryService summaryService;

@@ -9,6 +9,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/anomaly-rules")
+@CrossOrigin(origins = "*")
+
 public class AnomalyRuleController {
 
     private final AnomalyRuleService ruleService;
