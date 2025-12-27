@@ -99,7 +99,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         "/api/employees/**",
         "/api/anomalies/**",
         "/api/anomaly-rules/**",
-        "/api/team-file-summary/**"
+        "/api/team-summary/**"
             ).permitAll()
             .anyRequest().authenticated()
         )
