@@ -81,8 +81,8 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                 "/api/employees/**",
                 "/api/anomalies/**",
                 "/api/anomaly-rules/**",
-                "/api/team-file-summary/**",
-                "/api/productivity-metrics/**",
+                "/api/team-summary/**",
+                "/api/metrics/**",
 
                 // swagger
                 "/swagger-ui/**",
