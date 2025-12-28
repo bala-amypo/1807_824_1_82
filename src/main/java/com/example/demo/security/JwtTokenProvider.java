@@ -1,6 +1,8 @@
 package com.example.demo.security;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -8,25 +10,26 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    private final String SECRET_KEY = "my-secret-key";
-    private final long EXPIRATION_TIME = 60 * 60 * 1000; // 1 hour
+    private final String jwtSecret = "secret123";
+    private final long jwtExpirationMs = 86400000; // 1 day
 
-    public String generateToken(String username) {
+    public String generateToken(Authentication authentication) {
+
+        String username = authentication.getName();
 
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(
-                        new Date(System.currentTimeMillis() + EXPIRATION_TIME)
+                        new Date(System.currentTimeMillis() + jwtExpirationMs)
                 )
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
 
     public String getUsernameFromToken(String token) {
-
         return Jwts.parser()
-                .setSigningKey(SECRET_KEY)
+                .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
@@ -34,9 +37,9 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
-        } catch (JwtException | IllegalArgumentException e) {
+        } catch (Exception e) {
             return false;
         }
     }
