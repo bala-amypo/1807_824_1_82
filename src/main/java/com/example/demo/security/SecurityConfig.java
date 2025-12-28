@@ -195,9 +195,16 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         )
         .authorizeHttpRequests(auth -> auth
 
-            // CORS preflight
-            
-            
+    // Allow CORS preflight
+    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+    // Protect employees API
+    .requestMatchers("/api/employees/**").authenticated()
+
+    // Everything else
+    .anyRequest().permitAll()
+)
+
 
             // Swagger
             .requestMatchers(
