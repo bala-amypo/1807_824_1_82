@@ -20,7 +20,7 @@ public class SwaggerConfig {
             // ✅ IMPORTANT: AmyPO portal server URL
             .servers(List.of(
                 new Server().url("https://9010.32procr.amypo.ai/")
-            ))
+            ));
 
             
     }
