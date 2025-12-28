@@ -12,14 +12,14 @@ public class UserAccountServiceImpl implements UserAccountService {
             new JwtTokenProvider("MySuperSecretVendorSlaKey1234567890", 3600000L);
 
     @Override
-    public User register(User user) {
+    public UserAccount register(UserAccount user) {
         user.setId(1L); // dummy
         user.setRole("USER");
         return user;
     }
 
     @Override
-    public String login(User user) {
+    public String login(UserAccount user) {
         return jwtTokenProvider.createToken(
                 user.getEmail(),
                 "USER",
