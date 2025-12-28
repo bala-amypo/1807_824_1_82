@@ -145,9 +145,27 @@ public class SecurityConfig {
             )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                        "/swagger-ui/**",
+                              "/",                     // ✅ REQUIRED
+        "/index.html",
+        "/favicon.ico",
+
+        "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/api/auth/**"
+
+        "/api/auth/**",           // APIs
+        "/api/metrics/**",
+        "/api/employees/**",
+        "/api/anomalies/**",
+        "/api/anomaly-rules/**",
+        "/api/team-summary/**"
+            ).permitAll()
+            .anyRequest().authenticated()
+        )
+        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+    return http.build();
+}
                 ).permitAll()
                 .anyRequest().authenticated()
             )
