@@ -200,9 +200,21 @@ public class SecurityConfig {
 
                 // ✅ Swagger must be PUBLIC
                 .requestMatchers(
+                 "/",
+                 "/index.html",
+                 "/favicon.ico",
+                 "/api/auth/**",
+                 "/api/metrics/**",
+                 "/api/employees/**",
+                 "/api/anomalies/**",
+                 "/api/anomaly-rules/**",
+                 "/api/team-summary/**"
+                 "/api/auth/login"
                     "/swagger-ui/**",
                     "/v3/api-docs/**"
                 ).permitAll()
+                
+
 
                 // 🔐 everything else secured
                 .anyRequest().authenticated()
