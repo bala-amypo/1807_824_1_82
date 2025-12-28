@@ -100,15 +100,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     .anyRequest().authenticated()
 )
-.httpBasic();   // 👈 THIS LINE IS REQUIRED
-
-        "/api/employees/**",
-        "/api/anomalies/**",
-        "/api/anomaly-rules/**",
-        "/api/team-summary/**"
-            ).permitAll()
-            .anyRequest().authenticated()
-        )
+.httpBasic()  // 👈 THIS LINE IS REQUIRED
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
