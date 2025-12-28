@@ -7,25 +7,20 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final CustomUserDetailsService userDetailsService;
 
-    public JwtAuthenticationFilter(
-            JwtTokenProvider jwtTokenProvider,
-            CustomUserDetailsService userDetailsService
-    ) {
+    public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
-        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -35,12 +30,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        // 🔥 ALWAYS reset context at start
+        // 🔥 Clear any previous auth (stateless)
         SecurityContextHolder.clearContext();
 
         String header = request.getHeader("Authorization");
 
-        // 🚪 No token → continue without auth
+        // 🚪 No token → continue unauthenticated
         if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -48,23 +43,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = header.substring(7);
 
-        // ❌ Invalid token → continue without auth
+        // ❌ Invalid token → continue unauthenticated
         if (!jwtTokenProvider.validateToken(token)) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // ✅ Valid token → authenticate
+        // ✅ Valid token → authenticate using username only
         String username = jwtTokenProvider.getUsernameFromToken(token);
-
-        UserDetails userDetails =
-                userDetailsService.loadUserByUsername(username);
 
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null,
-                        userDetails.getAuthorities()
+                        username,          // principal
+                        null,              // credentials
+                        Collections.emptyList() // no roles
                 );
 
         authentication.setDetails(
