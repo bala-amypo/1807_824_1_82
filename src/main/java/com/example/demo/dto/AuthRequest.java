@@ -1,8 +1,9 @@
 package com.example.demo.dto;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
 
 public class AuthRequest {
     private String username;
     private String password;
+
+    public String getUsername() { return username; }
+    public String getPassword() { return password; }
 }
