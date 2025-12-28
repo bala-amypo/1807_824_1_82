@@ -14,7 +14,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public UserAccount register(UserAccount user) {
         user.setId(1L); // dummy
-        user.setRole("USER");
+        user.setRoles("USER");
         return user;
     }
 
