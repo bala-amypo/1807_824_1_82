@@ -1,10 +1,11 @@
 package com.example.demo.security;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -12,16 +13,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Collections;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private static final String SECRET =
+            "mysecretkeymysecretkeymysecretkey123"; // >= 32 chars
 
-    public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+    private final Key key =
+            Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
 
     @Override
     protected void doFilterInternal(
@@ -30,42 +33,38 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        // 🔥 Clear any previous auth (stateless)
-        SecurityContextHolder.clearContext();
-
         String header = request.getHeader("Authorization");
 
-        // 🚪 No token → continue unauthenticated
-        if (header == null || !header.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+        if (header != null && header.startsWith("Bearer ")) {
 
-        String token = header.substring(7);
+            String token = header.substring(7);
 
-        // ❌ Invalid token → continue unauthenticated
-        if (!jwtTokenProvider.validateToken(token)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+            try {
+                String username = Jwts.parserBuilder()
+                        .setSigningKey(key)
+                        .build()
+                        .parseClaimsJws(token)
+                        .getBody()
+                        .getSubject();
 
-        // ✅ Valid token → authenticate using username only
-        String username = jwtTokenProvider.getUsernameFromToken(token);
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                username,
+                                null,
+                                Collections.emptyList()
+                        );
 
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(
-                        username,          // principal
-                        null,              // credentials
-                        Collections.emptyList() // no roles
+                authentication.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
                 );
 
-        authentication.setDetails(
-                new WebAuthenticationDetailsSource()
-                        .buildDetails(request)
-        );
+                SecurityContextHolder.getContext()
+                        .setAuthentication(authentication);
 
-        SecurityContextHolder.getContext()
-                .setAuthentication(authentication);
+            } catch (Exception e) {
+                SecurityContextHolder.clearContext();
+            }
+        }
 
         filterChain.doFilter(request, response);
     }
