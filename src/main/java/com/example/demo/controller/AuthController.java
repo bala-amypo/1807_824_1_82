@@ -61,12 +61,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public UserAccount register(@RequestBody UserAcc user) {
+    public UserAccount register(@RequestBody UserAccount user) {
         return service.register(user);
     }
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody User user) {
+    public Map<String, String> login(@RequestBody UserAccount user) {
         String token = service.login(user);
         return Map.of("token", token);
     }
