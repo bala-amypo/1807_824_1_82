@@ -198,23 +198,22 @@ public class SecurityConfig {
                 // ✅ REQUIRED for Swagger + portals
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // ✅ Swagger must be PUBLIC
+                // ✅ PUBLIC endpoints (VERY IMPORTANT)
                 .requestMatchers(
-                 "/",
-                 "/index.html",
-                 "/favicon.ico",
-                 "/api/auth/**",
-                 "/api/metrics/**",
-                 "/api/employees/**",
-                 "/api/anomalies/**",
-                 "/api/anomaly-rules/**",
-                 "/api/team-summary/**"
-                 "/api/auth/login"
+                    "/",
+                    "/index.html",
+                    "/favicon.ico",
+
+                    // ✅ LOGIN must be public
+                    "/api/auth/login",
+
+                    // optional: if you have other auth APIs
+                    "/api/auth/**",
+
+                    // swagger
                     "/swagger-ui/**",
                     "/v3/api-docs/**"
                 ).permitAll()
-                
-
 
                 // 🔐 everything else secured
                 .anyRequest().authenticated()
@@ -236,7 +235,7 @@ public class SecurityConfig {
 
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOriginPatterns(List.of("*"));
-        config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(false);
 
