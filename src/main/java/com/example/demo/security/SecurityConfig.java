@@ -101,7 +101,7 @@ public class SecurityConfig {
         "/api/employees/**",
         "/api/anomalies/**",
         "/api/anomaly-rules/**",
-        "/api/team-file-summary/**"
+        "/api/team-summary/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
