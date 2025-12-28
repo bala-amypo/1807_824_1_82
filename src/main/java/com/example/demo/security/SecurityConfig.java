@@ -55,6 +55,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @Configuration
 public class SecurityConfig {
@@ -74,28 +81,27 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         )
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers(
-                // "/api/auth/**",
+    .requestMatchers(
+        "/swagger-ui/**",
+        "/v3/api-docs/**"
+    ).authenticated()
 
-                // // ✅ ADD ALL YOUR API PATHS HERE
-                // "/api/employees/**",
-                // "/api/anomalies/**",
-                // "/api/anomaly-rules/**",
-                // "/api/team-file-summary/**",
-                // "/api/productivity-metrics/**",
-
-                // // swagger
-                // "/swagger-ui/**",
-                // "/v3/api-docs/**"
-                  "/",                     // ✅ REQUIRED
+    .requestMatchers(
+        "/",
         "/index.html",
         "/favicon.ico",
-
-        "/swagger-ui/**",         // ✅ Swagger UI
-        "/v3/api-docs/**",
-
-        "/api/auth/**",           // APIs
+        "/api/auth/**",
         "/api/metrics/**",
+        "/api/employees/**",
+        "/api/anomalies/**",
+        "/api/anomaly-rules/**",
+        "/api/team-summary/**"
+    ).permitAll()
+
+    .anyRequest().authenticated()
+)
+.httpBasic();   // 👈 THIS LINE IS REQUIRED
+
         "/api/employees/**",
         "/api/anomalies/**",
         "/api/anomaly-rules/**",
@@ -114,4 +120,21 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+    @Bean
+public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
+
+    UserDetails admin = User
+            .withUsername("admin")
+            .password(passwordEncoder.encode("admin123"))
+            .roles("ADMIN")
+            .build();
+
+    return new InMemoryUserDetailsManager(admin);
+}
+
+@Bean
+public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+}
+
 }
