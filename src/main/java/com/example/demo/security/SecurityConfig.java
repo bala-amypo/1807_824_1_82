@@ -185,43 +185,49 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .authorizeHttpRequests(auth -> auth
-
-                // ✅ REQUIRED for Swagger + portals
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                // ✅ PUBLIC endpoints (VERY IMPORTANT)
-                 .requestMatchers(
-                 "/swagger-ui/**",
-                 "/v3/api-docs/**"
-             ).authenticated()
-
-             .requestMatchers(
-                 "/",
-                 "/index.html",
-                 "/favicon.ico",
-                 "/api/auth/**",
-                 "/api/metrics/**",
-                 "/api/employees/**",
-                 "/api/anomalies/**",
-                 "/api/anomaly-rules/**",
-                 "/api/team-summary/**"
-             ).permitAll()
-
-             .anyRequest().authenticated()
+    http
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        .csrf(csrf -> csrf.disable())
+        .sessionManagement(session ->
+            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         )
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        .authorizeHttpRequests(auth -> auth
 
-        return http.build();
-    }
+            // CORS preflight
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+            // Swagger
+            .requestMatchers(
+                "/swagger-ui/**",
+                "/v3/api-docs/**"
+            ).permitAll()
+
+            // Public auth
+            .requestMatchers(
+                "/",
+                "/index.html",
+                "/favicon.ico",
+                "/api/auth/**"
+            ).permitAll()
+
+            // Protected APIs
+            .requestMatchers(
+                "/api/metrics/**",
+                "/api/employees/**",
+                "/api/anomalies/**",
+                "/api/anomaly-rules/**",
+                "/api/team-summary/**"
+            ).authenticated()
+
+            .anyRequest().authenticated()
+        )
+        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+    return http.build();
+}
+
 
     @Bean
     public AuthenticationManager authenticationManager(
