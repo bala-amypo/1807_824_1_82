@@ -156,94 +156,93 @@
 //     return source;
 // }
 
+
 // }
+package com.example.demo.security;
 
-// package com.example.demo.security;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.http.HttpMethod;
-// import org.springframework.security.authentication.AuthenticationManager;
-// import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-// import org.springframework.security.config.http.SessionCreationPolicy;
-// import org.springframework.security.web.SecurityFilterChain;
-// import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-// import org.springframework.web.cors.CorsConfiguration;
-// import org.springframework.web.cors.CorsConfigurationSource;
-// import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.List;
 
-// import java.util.List;
+@Configuration
+public class SecurityConfig {
 
-// @Configuration
-// public class SecurityConfig {
+    private final JwtAuthenticationFilter jwtFilter;
 
-//     private final JwtAuthenticationFilter jwtFilter;
+    public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
+        this.jwtFilter = jwtFilter;
+    }
 
-//     public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
-//         this.jwtFilter = jwtFilter;
-//     }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-//     @Bean
-//     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(session ->
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .authorizeHttpRequests(auth -> auth
 
-//         http
-//             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-//             .csrf(csrf -> csrf.disable())
-//             .sessionManagement(session ->
-//                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//             )
-//             .authorizeHttpRequests(auth -> auth
+                // ✅ REQUIRED for Swagger + portals
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-//                 // ✅ REQUIRED for Swagger + portals
-//                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                // ✅ PUBLIC endpoints (VERY IMPORTANT)
+                .requestMatchers(
+                    "/",
+                    "/index.html",
+                    "/favicon.ico",
 
-//                 // ✅ PUBLIC endpoints (VERY IMPORTANT)
-//                 .requestMatchers(
-//                     "/",
-//                     "/index.html",
-//                     "/favicon.ico",
+                    // ✅ LOGIN must be public
+                    "/api/auth/login",
 
-//                     // ✅ LOGIN must be public
-//                     "/api/auth/login",
+                    // optional: if you have other auth APIs
+                    "/api/auth/**",
 
-//                     // optional: if you have other auth APIs
-//                     "/api/auth/**",
+                    // swagger
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**"
+                ).permitAll()
 
-//                     // swagger
-//                     "/swagger-ui/**",
-//                     "/v3/api-docs/**"
-//                 ).permitAll()
+                // 🔐 everything else secured
+                .anyRequest().authenticated()
+            )
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-//                 // 🔐 everything else secured
-//                 .anyRequest().authenticated()
-//             )
-//             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
 
-//         return http.build();
-//     }
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
 
-//     @Bean
-//     public AuthenticationManager authenticationManager(
-//             AuthenticationConfiguration config) throws Exception {
-//         return config.getAuthenticationManager();
-//     }
+    // ✅ CORS CONFIG (portal safe)
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
 
-//     // ✅ CORS CONFIG (portal safe)
-//     @Bean
-//     public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOriginPatterns(List.of("*"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(false);
 
-//         CorsConfiguration config = new CorsConfiguration();
-//         config.setAllowedOriginPatterns(List.of("*"));
-//         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//         config.setAllowedHeaders(List.of("*"));
-//         config.setAllowCredentials(false);
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
 
-//         UrlBasedCorsConfigurationSource source =
-//                 new UrlBasedCorsConfigurationSource();
-//         source.registerCorsConfiguration("/**", config);
-
-//         return source;
-//     }
-// }
-
+        return source;
+    }
+}
