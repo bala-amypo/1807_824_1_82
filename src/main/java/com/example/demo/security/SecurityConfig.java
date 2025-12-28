@@ -87,28 +87,31 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         )
         .authorizeHttpRequests(auth -> auth
-    .requestMatchers(
-        "/swagger-ui/**",
-        "/v3/api-docs/**"
-    ).authenticated()
 
-    .requestMatchers(
-        "/",
-        "/index.html",
-        "/favicon.ico",
-        "/api/auth/**",
-        "/api/metrics/**",
-        "/api/employees/**",
-        "/api/anomalies/**",
-        "/api/anomaly-rules/**",
-        "/api/team-summary/**"
-    ).permitAll()
+            .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**")
+            .permitAll()
 
-    .anyRequest().authenticated()
-)
- // 👈 THIS LINE IS REQUIRED
+            .requestMatchers(
+                "/swagger-ui/**",
+                "/v3/api-docs/**"
+            ).authenticated()
+
+            .requestMatchers(
+                "/",
+                "/index.html",
+                "/favicon.ico",
+                "/api/auth/**",
+                "/api/metrics/**",
+                "/api/employees/**",
+                "/api/anomalies/**",
+                "/api/anomaly-rules/**",
+                "/api/team-summary/**"
+            ).permitAll()
+
+            .anyRequest().authenticated()
+        )
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-        .httpBasic(); 
+        .httpBasic();
 
     return http.build();
 }
