@@ -1,11 +1,11 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.User;
+import com.example.demo.model.UserAccount;
 import java.util.Optional;
 
 public interface UserAccountRepository {
 
-    Optional<User> findByEmail(String email);
+    Optional<UserAccount> findByEmail(String email);
 
-    User save(User user);
+    UserAccount save(UserAccount user);
 }

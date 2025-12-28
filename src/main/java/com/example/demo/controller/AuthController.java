@@ -61,7 +61,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public UserAccount register(@RequestBody User user) {
+    public UserAccount register(@RequestBody UserAcc user) {
         return service.register(user);
     }
 
