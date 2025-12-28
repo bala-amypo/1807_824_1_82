@@ -18,7 +18,8 @@ public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+     private String email;
+     private String password;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles")
     private Set<String> roles;
@@ -26,10 +27,15 @@ public class UserAccount {
     public UserAccount() {}
 
     // Getters & Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { 
+        return id; 
+        }
+    public void setId(Long id) {
+     this.id = id;
+      }
 
-    public Set<String> getRoles() { return roles; }
+    public Set<String> getRoles() {
+         return roles; }
     public void setRoles(Set<String> roles) { this.roles = roles; }
 }
 
