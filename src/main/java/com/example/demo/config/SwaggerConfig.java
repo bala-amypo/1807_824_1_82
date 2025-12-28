@@ -17,21 +17,4 @@ public class SwaggerConfig {
                         new Server().url("https://9010.32procr.amypo.ai/")
                 ));
         }
-        
-    @Bean
-    public OpenAPI customOpenAPI() {
-
-        SecurityScheme bearerAuth = new SecurityScheme()
-                .type(SecurityScheme.Type.HTTP)
-                .scheme("bearer")
-                .bearerFormat("JWT");
-
-        return new OpenAPI()
-                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-                .components(
-                        new Components().addSecuritySchemes("bearerAuth", bearerAuth)
-                );
-    }
-
 }
-        
