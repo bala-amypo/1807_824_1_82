@@ -100,8 +100,9 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     .anyRequest().authenticated()
 )
-.httpBasic()  // 👈 THIS LINE IS REQUIRED
-        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+ // 👈 THIS LINE IS REQUIRED
+        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+        .httpBasic(); 
 
     return http.build();
 }
