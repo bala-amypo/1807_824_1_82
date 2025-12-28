@@ -22,21 +22,6 @@ public class SwaggerConfig {
                 new Server().url("https://9010.32procr.amypo.ai/")
             ))
 
-            // ✅ Enable Authorize 🔒 (JWT)
-            .addSecurityItem(
-                new SecurityRequirement().addList("bearerAuth")
-            )
-
-            .components(
-                new Components()
-                    .addSecuritySchemes(
-                        "bearerAuth",
-                        new SecurityScheme()
-                            .type(SecurityScheme.Type.HTTP)
-                            .scheme("bearer")
-                            .bearerFormat("JWT")
-                            .name("Authorization")
-                    )
-            );
+            
     }
 }
