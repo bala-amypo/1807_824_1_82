@@ -199,25 +199,25 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                 // ✅ PUBLIC endpoints (VERY IMPORTANT)
-                .requestMatchers(
-                    "/",
-                    "/index.html",
-                    "/favicon.ico",
+                 .requestMatchers(
+                 "/swagger-ui/**",
+                 "/v3/api-docs/**"
+             ).authenticated()
 
-                    // ✅ LOGIN must be public
-                    "/api/auth/login",
+             .requestMatchers(
+                 "/",
+                 "/index.html",
+                 "/favicon.ico",
+                 "/api/auth/**",
+                 "/api/metrics/**",
+                 "/api/employees/**",
+                 "/api/anomalies/**",
+                 "/api/anomaly-rules/**",
+                 "/api/team-summary/**"
+             ).permitAll()
 
-                    // optional: if you have other auth APIs
-                    "/api/auth/**",
-
-                    // swagger
-                    "/swagger-ui/**",
-                    "/v3/api-docs/**"
-                ).permitAll()
-
-                // 🔐 everything else secured
-                .anyRequest().authenticated()
-            )
+             .anyRequest().authenticated()
+        )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
